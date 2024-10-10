@@ -1,0 +1,23 @@
+{
+	"defaultProject": "web",
+	"useInferencePlugins": false,
+	"defaultBase": "main",
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"namedInputs": {
+		"default": ["{projectRoot}/**/*", "sharedGlobals"],
+		"sharedGlobals": [
+			"{workspaceRoot}/tsconfig.json",
+			"{workspaceRoot}/nx.json"
+		],
+		"production": [
+			"default",
+			"!{projectRoot}/.eslintrc.json"
+		]
+	},
+	"cli": {
+		"cache": {
+			"enabled": true,
+			"environment": "all"
+		}
+	}
+}
