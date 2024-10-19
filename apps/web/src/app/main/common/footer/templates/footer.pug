@@ -1,0 +1,118 @@
+footer.main-footer
+	.bg.bg-pattern-7
+	.auto-container
+		.footer-upper
+			.logo-box
+				img(src='assets/assets1/images/logo-vertical-white.png' alt='logo')
+			ul.contact-info
+				li
+					i.icon.fa.fa-phone-square
+					span.title
+						| {{ "BASE.LABEL.PHONE" | translate }}:
+					.text
+						a([href]='"tel:" + config?.phone | empty' rel='noopener noreferrer') {{ config?.phone | phoneFormat | empty }}
+				li
+					i.icon.fa.fa-envelope
+					span.title
+						| {{ "BASE.LABEL.EMAIL" | translate }}:
+					.text
+						a([href]='"mailto:" + config?.email | empty' rel='noopener noreferrer') {{ config?.email | empty }}
+			.btn-box
+				a.theme-btn.btn-style-four(routerLink='/contact')
+					span.btn-title
+						| {{ "BASE.LABEL.BOOK_CONSULTATION" | translate }}
+	.widgets-section
+		.auto-container
+			.row
+				.footer-column.col-xl-12.col-lg-12.col-md-12.mb-0
+					.row
+						.footer-widget.col-lg-4.col-md-4.col-ms-12
+							h6.widget-title
+								| {{ "BASE.LABEL.LINKS" | translate }}
+							ul.user-links
+								li
+									a.router-link-active.router-link-exact-active(
+										aria-current='page',
+										routerLink='/')
+										| {{ "BASE.LABEL.HOME" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										aria-current='page',
+										routerLink='/news')
+										| {{ "BASE.LABEL.NEWS" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										aria-current='page',
+										routerLink='/contact')
+										| {{ "BASE.LABEL.CONTACT" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										aria-current='page',
+										routerLink='/about-us')
+										| {{ "BASE.LABEL.ABOUT_US" | translate }}
+						.footer-widget.col-lg-4.col-md-4.col-ms-12
+							h6.widget-title
+								| {{ "BASE.LABEL.SERVICES" | translate }}
+							ul.user-links
+								li
+									a.router-link-active.router-link-exact-active(
+										[routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
+										| {{ "BASE.LABEL.OVERSEA" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										[routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
+										| {{ "BASE.LABEL.TOURISM" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										[routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
+										| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										[routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
+										| {{ "BASE.LABEL.IMMIGRATION" | translate }}
+								li
+									a.router-link-active.router-link-exact-active(
+										[routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
+										| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
+						.footer-widget.col-lg-4.col-md-4.col-ms-12
+							h6.widget-title
+								| {{ "BASE.LABEL.CONTACT" | translate }}
+							ul.user-links
+								li
+									i.icon.fa.fa-location-dot.mr-10
+									span.title
+										a.text(
+											[href]='config?.addressLink | empty',
+											target="_blank")
+											| {{ config?.address | empty }}
+								li
+									i.icon.pi.pi-facebook.mr-10
+									span.title
+										a.text(
+											[href]="config?.socialLink | empty",
+											target="_blank")
+											| {{ "BASE.LABEL.VISIT_FANPAGE" | translate }}
+				//- .footer-column.col-xl-3.col-lg-12.col-md-6
+				//- 	.footer-widget
+				//- 		h6.widget-title
+				//- 			| {{ "BASE.LABEL.NEWSLETTER" | translate }}
+				//- 		.subscribe-form
+				//- 			.text
+				//- 				| {{ "BASE.LABEL.NEWSLETTER_DESCRIPTION" | translate }}
+				//- 			form(method='post' action='#')
+				//- 				.form-group
+				//- 					input.email(
+				//- 						type='email',
+				//- 						name='email',
+				//- 						value='',
+				//- 						[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate' required='')
+				//- 					button.theme-btn(type='button')
+				//- 						i.fa.fa-paper-plane
+	.footer-bottom
+		.auto-container
+			.inner-container
+				.copyright-text
+					| &copy;
+					| {{ "BASE.LABEL.COPYRIGHTS_BY" | translate }} AlphaVisa
+					a(routerLink='/panel/service')
+						i.pi.pi-external-link.ml-8

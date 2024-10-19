@@ -1,0 +1,40 @@
+div
+	section.page-title(style='background-image:url(assets/assets1/images/background/page-title.jpg);')
+		.auto-container
+			.title-outer
+				h1.title
+					| {{ "BASE.LABEL.NEWS_EVENT" | translate }}
+				ul.page-breadcrumb
+					li
+						a(routerLink='/')
+							| {{ "BASE.LABEL.HOME" | translate }}
+					li
+						| {{ "BASE.LABEL.NEWS" | translate }}
+	section.news-section
+		.auto-container
+			.row
+				+if('loaded')
+					+for('news of newsList; track news')
+						.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp
+							.inner-box
+								.image-box
+									figure
+										a([routerLink]='[ "/news/detail", news.id ]')
+											.image(
+												[style]='"background-image: url(" + news?.thumbnail?.url + ");"')
+								.lower-content
+									ul.post-info
+										li
+											i.fa.fa-user-circle.mr-10
+											| Admin
+										li
+											i.fa.fa-calendar.mr-10
+											| {{ news.createdAt | momentDate : "DD/MM/YY"}}
+									a([routerLink]='[ "/news/detail", news.id ]')
+										h4.title.text-truncate-multi-line-3.mah-86
+											| {{ news.topic | empty }}
+									cub-show-more.text(limitLine='2')
+										| {{ news?.description | empty }}
+				+else
+					.layout-row.layout-align-center-start
+						cub-loading

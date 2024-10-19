@@ -1,0 +1,36 @@
+@import 'src/scss/partials/variable';
+
+:host {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+	background-color: $color-white;
+
+	.icon-social {
+		height: 20px;
+		width: 20px;
+		margin-top: 10px;
+		background-size: cover;
+		background-color: #FA8714;
+		border-radius: 4px;
+	}
+
+	.icon-zalo {
+		background-image: url('/assets/assets1/images/icons/icon-zalo-white.png');
+	}
+	.icon-facebook {
+		background-image: url('/assets/assets1/images/icons/icon-facebook-white.png');
+	}
+
+	a:hover {
+		.icon-zalo {
+			background-image: url('/assets/assets1/images/icons/icon-zalo-black.png');
+		}
+
+		.icon-facebook {
+			background-image: url('/assets/assets1/images/icons/icon-facebook-black.png');
+		}
+	}
+}

@@ -1,0 +1,35 @@
+mixin client(client)
+	.service-block-two.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
+		.inner-box
+			.image-box
+				figure
+					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
+						.image-client(
+							[style]=`"background-image: url(" + ${client}?.thumbnail?.url + ");"`)
+				i.icon.fa.fa-graduation-cap
+			.lower-content
+				h6.title.text-truncate-multi-line-3.mah-86
+					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
+						| {{ #{client}.name | empty }}
+				.text-truncate-multi-line.text
+					| {{ #{client}?.story | empty }}
+
+section.services-section-two.pull-down.mb-40
+	.bg(style='background-image: url(assets/assets1/images/background/2.jpg)')
+	.auto-container
+		.sec-title.text-center.light
+			span.sub-title
+				| {{ "BASE.LABEL.ACHIEVEMENT_WE_HAD" | translate }}
+			h2
+				| {{ "BASE.LABEL.CLIENTS_TAKE" | translate }}&nbsp;
+				br
+				| {{ "BASE.LABEL.VISA" | translate }}&nbsp;
+				span.color3
+					| {{ "BASE.LABEL.SUCCESS" | translate }}
+		.row
+			+if('loaded')
+				+for('client of clients; track client')
+					+client('client')
+			+else
+				.layout-row.layout-align-center-start
+					cub-loading

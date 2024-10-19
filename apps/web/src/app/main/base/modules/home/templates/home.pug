@@ -1,0 +1,396 @@
+mixin auto-container
+	.auto-container
+		.content-box
+			.sub-title
+				span.txt
+					| 99%
+					| {{ "BASE.LABEL.SUCCESS_RATE" | translate }}
+			h1.title
+				| {{ "BASE.LABEL.ALPHA" | translate }}&nbsp;
+				br
+				| {{ "BASE.LABEL.GIVE_VIETNAM" | translate }}&nbsp;
+				br
+				| {{ "BASE.LABEL.GO_FAR" | translate }}
+			.btn-box
+				a.theme-btn.btn-style-one(routerLink='/service')
+					span.btn-title
+						| {{ "BASE.LABEL.EXPLORE_NOW" | translate }}
+				a.theme-btn.btn-style-two(routerLink='/contact')
+					span.btn-title
+						| {{ "BASE.LABEL.CONTACT_NOW" | translate }}
+
+mixin client(client, index)
+	.swiper-slide.service-block-two.wow.fadeInUp.mr-30.w-270(
+		[attr.data-swiper-slide-index]=`${index}`)
+		.inner-box
+			.image-box
+				figure.image
+					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
+						.image-client(
+							[style]=`"background-image: url(" + ${client}?.thumbnail?.url + ");"`)
+				i.icon.fa.fa-graduation-cap
+			.lower-content
+				h6.title.text-truncate-multi-line-3.mah-86
+					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
+						| {{ #{client}?.name | empty }}
+				.text-truncate-multi-line.text
+					| {{ #{client}?.story | empty }}
+
+div
+	section.banner-section
+		.swiper.banner-carousel.owl-carousel.owl-theme
+			.swiper-wrapper
+				.swiper-slide.slide-item(data-swiper-slide-index='0')
+					.bg-image(style='background-image: url(assets/assets1/images/main-slider/2.jpg)')
+					+auto-container
+				.swiper-slide.slide-item(data-swiper-slide-index='1')
+					.bg-image(style='background-image: url(assets/assets1/images/main-slider/3.jpg)')
+					+auto-container
+	section.services-section
+		.auto-container
+			.row
+				.col-lg-6
+					.sec-title
+						span.sub-title
+							| {{ "BASE.LABEL.WHAT_WE_ARE_SUPPLY" | translate }}
+						h2
+							| {{ "BASE.LABEL.MULTI_TYPE" | translate }}
+							br
+							| {{ "BASE.LABEL.TYPE_SERVICE" | translate }}&nbsp;
+							span.color3
+								| {{ "BASE.LABEL.SERVICE" | translate }}
+						.text
+							| {{ "BASE.LABEL.SERVICE_DESCRIPTION" | translate }}
+				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
+									img(src='assets/assets1/images/resource/service-1.jpg' alt='')
+							i.icon.fa.fa-graduation-cap
+							h6.title
+								| {{ "BASE.LABEL.OVERSEA" | translate }}
+						.content-box
+							h6.title
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
+									| {{ "BASE.LABEL.OVERSEA" | translate }}
+							.text
+								| {{ "BASE.LABEL.OVERSEA_DESCRIPTION" | translate }}
+				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='200ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
+									img(src='assets/assets1/images/resource/service-2.jpg' alt='')
+							i.icon.fa.fa-briefcase
+							h6.title
+								| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
+						.content-box
+							h6.title
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
+									| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
+							.text
+								| {{ "BASE.LABEL.SPONSORSHIP_DESCRIPTION" | translate }}
+				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
+									img(src='assets/assets1/images/resource/service-3.jpg' alt='')
+							i.icon.fa.fa-user-graduate
+							h6.title
+								| {{ "BASE.LABEL.TOURISM" | translate }}
+						.content-box
+							h6.title
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
+									| {{ "BASE.LABEL.TOURISM" | translate }}
+							.text
+								| {{ "BASE.LABEL.TOURISM_DESCRIPTION" | translate }}
+				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='200ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
+									img(src='assets/assets1/images/resource/service-4.jpg' alt='')
+							i.icon.fa.fa-camera
+							h6.title
+								| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
+						.content-box
+							h6.title
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
+									| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
+							.text
+								| {{ "BASE.LABEL.EMPLOYMENT_DESCRIPTION" | translate }}
+				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='400ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
+									img(src='assets/assets1/images/resource/service-5.jpg' alt='')
+							i.icon.fa.fa-home
+							h6.title
+								| {{ "BASE.LABEL.IMMIGRATION" | translate }}
+						.content-box
+							h6.title
+								a([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
+									| {{ "BASE.LABEL.IMMIGRATION" | translate }}
+							.text
+								| {{ "BASE.LABEL.IMMIGRATION_DESCRIPTION" | translate }}
+				.cta-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='600ms')
+					.inner-box
+						h4.title
+							a(routerLink='/service')
+								| {{ "BASE.LABEL.GET_VISA_100" | translate }}
+						a.theme-btn.btn-style-three.small(routerLink='/service')
+							| {{ "BASE.LABEL.APPLY_NOW" | translate }}
+	section.why-choose-us.pt-0
+		.bg.bg-pattern-1
+		.auto-container
+			.sec-title.text-center
+				span.sub-title
+					| {{ "BASE.LABEL.MORE_INFO" | translate }}
+				h2
+					| {{ "BASE.LABEL.REASON_TO_CHOOSE" | translate }}&nbsp;
+					br
+					| {{ "BASE.LABEL.SERVICE_OF" | translate }}&nbsp;
+					span.color3
+						| {{ "BASE.LABEL.ALPHA_VISA" | translate }}
+			.row
+				.feature-block.col-xl-3.col-lg-6.col-md-6.col-sm-12.wow.fadeInUp
+					.inner-box
+						i.icon.flaticon-interview
+						span.cat
+							| {{ "BASE.LABEL.YOU_WILL_HAVE" | translate }}
+						h6.title
+							a(routerLink='/')
+								| {{ "BASE.LABEL.SUPPORT" | translate }}
+								br
+								| {{ "BASE.LABEL.DIRECT" | translate | lowercase }}
+				.feature-block.col-xl-3.col-lg-6.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='300ms')
+					.inner-box
+						.content
+							i.icon.flaticon-low-cost
+							span.cat
+								| {{ "BASE.LABEL.YOU_WILL_HAVE" | translate }}
+							h6.title
+								a(routerLink='/')
+									| {{ "BASE.LABEL.EFFECTIVE" | translate }}
+									br
+									| {{ "BASE.LABEL.COST" | translate | lowercase }}
+				.feature-block.col-xl-3.col-lg-6.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='600ms')
+					.inner-box
+						.content
+							i.icon.flaticon-loyalty
+							span.cat
+								| {{ "BASE.LABEL.YOU_WILL_HAVE" | translate }}
+							h6.title
+								a(routerLink='/')
+									| {{ "BASE.LABEL.QUALITY_COMMUNITY" | translate }}
+				.feature-block.col-xl-3.col-lg-6.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='900ms')
+					.inner-box
+						.content
+							i.icon.flaticon-online-support
+							span.cat
+								| {{ "BASE.LABEL.YOU_WILL_HAVE" | translate }}
+							h6.title
+								a(routerLink='/')
+									| {{ "BASE.LABEL.SUPPORT" | translate }}
+									br
+									| {{ "BASE.LABEL.TEAM" | translate | lowercase }}
+			.bottom-text
+				| {{ "BASE.LABEL.TOP_RATE" | translate }}
+				a.theme-btn.btn-style-two(routerLink='/contact')
+					| {{ "BASE.LABEL.DISCOVER_MORE" | translate }}
+	section.gallery-section.pt-0
+		.auto-container
+			.carousel-outer
+				.title-box
+					.inner
+						span.sub-title
+							| {{ "BASE.LABEL.FROM_PARTNER" | translate }}&nbsp;
+						h2.title
+							| {{ "BASE.LABEL.OPPORTUNITY" | translate }}&nbsp;
+							br
+							| {{ "BASE.LABEL.SCHOLARSHIP" | translate }}&nbsp;
+							br
+							| {{ "BASE.LABEL.OVERSEA" | translate }}
+				.swiper.gallery-carousel.owl-carousel.owl-theme.wow.fadeInUp
+					.swiper-wrapper
+						.swiper-slide.slide-item.mr-10.w-336(
+							data-swiper-slide-index='0')
+							.gallery-item
+								img(src='assets/assets1/images/resource/gallery-1.jpg' alt='')
+						.swiper-slide.slide-item.mr-10.w-336(
+							data-swiper-slide-index='1')
+							.gallery-item
+								img(src='assets/assets1/images/resource/gallery-2.jpg' alt='')
+						.swiper-slide.slide-item.mr-10.w-336(
+							data-swiper-slide-index='2')
+							.gallery-item
+								img(src='assets/assets1/images/resource/gallery-3.jpg' alt='')
+						.swiper-slide.slide-item.mr-10.w-336(
+							data-swiper-slide-index='3')
+							.gallery-item
+								img(src='assets/assets1/images/resource/gallery-4.jpg' alt='')
+	section.countries-section
+		.auto-container
+			.sec-title.text-center
+				span.sub-title
+					| {{ "BASE.LABEL.COUNTRIES_YOU_CAN_VISIT" | translate }}
+				h2
+					| {{ "BASE.LABEL.COUNTRIES_WE_ARE_SUPPORTING" | translate }}&nbsp;
+					br
+					| {{ "BASE.LABEL.AT" | translate }}&nbsp;
+					span.color3
+						| {{ "BASE.LABEL.COUNTRIES" | translate }}
+			.carousel-outer
+				.swiper.countries-carousel.owl-carousel.owl-theme
+					.swiper-wrapper
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='0')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-1.png' alt='Australia')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.AMERICA" | translate }}
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='1')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-2.png' alt='Germany')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.CANADA" | translate }}
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='2')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-3.png' alt='Brazil')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.AUSTRALIA" | translate }}
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='4')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-5.png' alt='England')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.ENGLAND" | translate }}
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='3')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-4.png' alt='Russia')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.NEW_ZEALAND" | translate }}
+						.swiper-slide(
+							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
+							data-swiper-slide-index='5')
+							.country-block
+								.inner-box
+									.flag
+										img(src='assets/assets1/images/resource/flag-6.png' alt='India')
+									a.theme-btn(href="javascript:void(0)")
+										| {{ "BASE.LABEL.SINGAPORE" | translate }}
+	section.services-section-two.pull-down.mb-40
+		.bg(style='background-image: url(assets/assets1/images/background/2.jpg)')
+		.auto-container
+			.sec-title.text-center.light
+				span.sub-title
+					| {{ "BASE.LABEL.ACHIEVEMENT_WE_HAD" | translate }}
+				h2
+					| {{ "BASE.LABEL.CLIENTS" | translate }}&nbsp;
+					br
+					| {{ "BASE.LABEL.TAKE_VISA" | translate }}&nbsp;
+					span.color3
+						| {{ "BASE.LABEL.SUCCESS" | translate }}
+			.swiper.client
+				.swiper-wrapper
+					+for('client of clients; track client; let idx = $index;')
+						+client('client', 'idx')
+	section.contact-section
+		.outer-box
+			.bg.bg-pattern-6
+			.auto-container
+				.row
+					.title-column.col-lg-6.col-md-12.wow.fadeInLRight
+						.inner-column
+							.sec-title
+								span.sub-title
+									| {{ "BASE.LABEL.CONTACT_WITH_US" | translate }}&nbsp;
+								h2
+									| {{ "BASE.LABEL.INFORMATION" | translate }}&nbsp;
+									span.color3
+										| {{ "BASE.LABEL.CONSULTATION" | translate }}
+								.text
+									| {{ "BASE.LABEL.CONSULTATION_DESCRIPTION" | translate }}
+							ul.list-style-two
+								li
+									i.fa.fa-check-circle
+									| {{ "BASE.LABEL.SIMPLE_PROGRESS" | translate }}
+								li
+									i.fa.fa-check-circle
+									| {{ "BASE.LABEL.SERVICE_ALL_TIME" | translate }}
+								li
+									i.fa.fa-check-circle
+									| {{ "BASE.LABEL.CAREFUL_SERVICE" | translate }}
+							.ceo-info
+								//- figure.thumb
+								//- 	img(src='assets/assets1/images/logo-img.png' alt='')
+								//- h6.name Thanh Mỹ
+								//- .designation
+								//- 	| CEO
+								//- 	| {{ "BASE.LABEL.FOUNDER" | translate }}
+					.form-column.col-lg-6.col-md-12.col-sm-12
+						.inner-column
+							.form-outer
+								.contact-form.wow.fadeInLeft
+									form#contact-form(
+										[formGroup]='emailForm',
+										(submit)='sendEmail()')
+										.form-group
+											input(
+												required,
+												cubFormFieldInput,
+												type='text',
+												name='full_name',
+												formControlName='fullName',
+												[placeholder]='"BASE.PLACEHOLDER.INPUT_NAME" | translate')
+										.form-group
+											input(
+												required,
+												cubFormFieldInput,
+												type='number',
+												name='phone_number',
+												formControlName='phone',
+												[placeholder]='"BASE.PLACEHOLDER.INPUT_PHONENUMBER" | translate')
+										.form-group
+											input(
+												required,
+												cubFormFieldInput,
+												type='text',
+												name='Email',
+												formControlName='email',
+												[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate')
+										.form-group
+											textarea(
+												cubFormFieldInput,
+												type='text',
+												name='message',
+												formControlName='description',
+												[placeholder]='"BASE.PLACEHOLDER.INPUT_MESSAGE" | translate')
+										.form-group
+											button.theme-btn.btn-style-three(
+												type='submit',
+												name='submit-form',
+												[disabled]='emailForm?.invalid')
+												span.btn-title
+													| {{ "BASE.LABEL.SEND_MESSAGE" | translate }}

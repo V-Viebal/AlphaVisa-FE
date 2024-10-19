@@ -1,0 +1,128 @@
+div
+	section.page-title(style='background-image:url(assets/assets1/images/background/page-title.jpg);')
+		.auto-container
+			.title-outer
+				h1.title
+					| {{ "BASE.LABEL.CONTACT_WITH_US" | translate }}
+				ul.page-breadcrumb
+					li
+						a(routerLink='/')
+							| {{ "BASE.LABEL.HOME" | translate }}
+					li
+						| {{ "BASE.LABEL.CONTACT_US" | translate }}
+	section.contact-details
+		.container
+			.row
+				.col-xl-7.col-lg-6
+					.sec-title
+						span.sub-title.before-none
+							| {{ "BASE.LABEL.SEND_US_EMAIL" | translate }}
+						h2
+							| {{ "BASE.LABEL.PLEASE_SHARE_US" | translate }}
+					form#contact-form(
+						[formGroup]='emailForm',
+						(submit)='sendEmail()')
+						.row
+							.col-sm-6
+								.mb-3
+									input.form-control(
+										required,
+										cubFormFieldInput,
+										name='form_name',
+										type='text',
+										formControlName='fullName',
+										[placeholder]='"BASE.PLACEHOLDER.INPUT_NAME" | translate')
+							.col-sm-6
+								.mb-3
+									input.form-control.required.email(
+										required,
+										cubFormFieldInput,
+										name='form_email',
+										type='email',
+										formControlName='email',
+										[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate')
+						.row
+							.col-sm-6
+								.mb-3
+									input.form-control.required(
+										name='form_subject',
+										type='text',
+										formControlName='title',
+										[placeholder]='"BASE.PLACEHOLDER.INPUT_SUBJECT" | translate')
+							.col-sm-6
+								.mb-3
+									input.form-control(
+										required,
+										cubFormFieldInput,
+										name='form_phone',
+										type='text',
+										formControlName='phone',
+										[placeholder]='"BASE.PLACEHOLDER.INPUT_PHONENUMBER" | translate')
+						.mb-3
+							textarea.form-control.required(
+								cubFormFieldInput,
+								name='form_message',
+								rows='7',
+								formControlName='description',
+								[placeholder]='"BASE.PLACEHOLDER.INPUT_MESSAGE" | translate')
+						.mb-5
+							input.form-control(name='form_botcheck' type='hidden' value='')
+							button.theme-btn.btn-style-one.me-1(
+								type='submit',
+								data-loading-text='Please wait...'
+								[disabled]='emailForm?.invalid')
+								span.btn-title
+									| {{ "BASE.LABEL.SEND_EMAIL" | translate }}
+							button.theme-btn.btn-style-one.bg-theme-color5(type='reset')
+								span.btn-title
+									| {{ "BASE.LABEL.DELETE" | translate }}
+				.col-xl-5.col-lg-6
+					.contact-details__right
+						.sec-title
+							span.sub-title.before-none
+								| {{ "BASE.LABEL.DO_YOU_NEED_HELP" | translate }}
+							h2
+								| {{ "BASE.LABEL.GET_IN_TOUCH_US" | translate }}
+							.text
+								| {{ "BASE.LABEL.SIMPLE_PROGRESS" | translate }}&nbsp;
+								| {{ "BASE.LABEL.SERVICE_ALL_TIME" | translate }}&nbsp;
+								| {{ "BASE.LABEL.CAREFUL_SERVICE" | translate }}
+						ul.list-unstyled.contact-details__info.user-links
+							li
+								.icon
+									span.lnr-icon-phone-plus
+								.text
+									h6
+										| {{ "BASE.LABEL.HAVE_ANY_QUESTION" | translate }}
+									a([href]='"tel:" + config?.phone | empty')
+										| {{ config?.phone | phoneFormat | empty }}
+							li
+								.icon
+									span.lnr-icon-envelope1
+								.text
+									h6
+										| {{ "BASE.LABEL.WRITE_EMAIL" | translate }}
+									a([href]='"mailto:" + config?.email | empty') {{ config?.email | empty }}
+							li
+								.icon
+									span.lnr-icon-location
+								.text
+									h6.mb-1
+										| {{ "BASE.LABEL.COME_DIRECTLY" | translate }}
+									a(
+										[href]="config?.addressLink | empty",
+										target="_blank")
+										| {{ config?.address | empty }}
+	+if('config')
+		section.map-section
+			iframe(
+				width='100%',
+				height='600',
+				frameborder='0',
+				scrolling='no',
+				marginheight='0',
+				marginwidth='0',
+				[src]='config?.addressMap | safeUrl')
+				a(href='https://www.gps.ie/') gps trackers
+	+else
+		cub-loading

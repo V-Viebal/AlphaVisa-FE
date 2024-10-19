@@ -1,0 +1,165 @@
+div
+	section.page-title(style='background-image:url(assets/assets1/images/background/page-title.jpg);')
+		.auto-container
+			.title-outer
+				h1.title
+					| {{ "BASE.LABEL.SERVICE_VISA" | translate }}
+				ul.page-breadcrumb
+					li
+						a(routerLink='/')
+							| {{ "BASE.LABEL.HOME" | translate }}
+					li
+						| {{ "BASE.LABEL.SERVICES" | translate }}
+	section.news-section
+		.auto-container
+			.row
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "detail", SERVICE_TYPE.OVERSEA ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/news-1.jpg");')
+							span.date
+								| 10
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.OVERSEA ]')
+									| {{ "BASE.LABEL.OVERSEA_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.OVERSEA ]')
+									| {{ "BASE.LABEL.OVERSEA_VISA_DESCRIPTION" | translate }}
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='300ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "detail", SERVICE_TYPE.TOURISM ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/news-2.jpg");')
+							span.date
+								| 5
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.TOURISM ]')
+									| {{ "BASE.LABEL.TOURISM_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.TOURISM ]')
+									| {{ "BASE.LABEL.TOURISM_VISA_DESCRIPTION" | translate }}
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='600ms')
+					.inner-box
+						.image-box
+							figure.iage
+								a([routerLink]='[ "detail", SERVICE_TYPE.EMPLOYMENT ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/news-3.jpg");')
+							span.date
+								| 20
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.EMPLOYMENT ]')
+									| {{ "BASE.LABEL.EMPLOYMENT_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.EMPLOYMENT ]')
+									| {{ "BASE.LABEL.EMPLOYMENT_VISA_DESCRIPTION" | translate }}
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='1200ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "detail", SERVICE_TYPE.IMMIGRATION ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/about-8.jpg");')
+							span.date
+								| 10
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.IMMIGRATION ]')
+									| {{ "BASE.LABEL.IMMIGRATION_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.IMMIGRATION ]')
+									| {{ "BASE.LABEL.IMMIGRATION_VISA_DESCRIPTION" | translate }}
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='1500ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "detail", SERVICE_TYPE.SPONSORSHIP ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/about-7.jpg");')
+							span.date
+								| 5
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.SPONSORSHIP ]')
+									| {{ "BASE.LABEL.SPONSORSHIP_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.SPONSORSHIP ]')
+									| {{ "BASE.LABEL.SPONSORSHIP_VISA_DESCRIPTION" | translate }}
+				.news-block.col-lg-4.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='1500ms')
+					.inner-box
+						.image-box
+							figure.image
+								a([routerLink]='[ "detail", SERVICE_TYPE.VISIT ]')
+									.image(
+										style='background-image: url("assets/assets1/images/resource/feature-1.jpg");')
+							span.date
+								| 5
+								span.month
+									| {{ "BASE.LABEL.COUNTRY" | translate }}
+						.lower-content
+							ul.post-info
+								li
+									i.fa.fa-user-circle.mr-10
+									| {{ "BASE.LABEL.ADMIN" | translate }}
+								li
+									i.fa.fa-calendar.mr-10
+									| {{ today | date : 'dd/MM/yyyy' }}
+							h4.title
+								a([routerLink]='[ "detail", SERVICE_TYPE.VISIT ]')
+									| {{ "BASE.LABEL.VISIT_VISA" | translate }}
+							cub-show-more.text(limitLine='5')
+								.cursor([routerLink]='[ "detail", SERVICE_TYPE.VISIT ]')
+									| {{ "BASE.LABEL.VISIT_VISA_DESCRIPTION" | translate }}

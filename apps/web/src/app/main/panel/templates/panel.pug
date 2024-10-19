@@ -1,0 +1,20 @@
+mixin item
+	.item(
+		[otherConfig]=`{
+			position: 'after'
+		}`,
+		[cubTooltip]='item.label',
+		[class.item--actived]='selectedItem === item.value',
+		[class.item--disabled]='item?.disabled',
+		(click)='item.command()')
+		i([class]='item.icon')
+
+.side-bar
+	.flex.layout-column.layout-align-start-center.layout-gap-4
+		+for('item of directionItems; track item')
+			+item
+	.flex.layout-column.layout-align-end-center.layout-gap-4
+		+for('item of items; track item')
+			+item
+
+router-outlet

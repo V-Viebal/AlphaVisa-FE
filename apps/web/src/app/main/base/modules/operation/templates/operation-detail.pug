@@ -1,0 +1,100 @@
+mixin type(o)
+	li(
+		[class.current]=`${o}.id == operation.id`)
+		a.router-link-active.router-link-exact-active(
+			aria-current='page',
+			[class.current]=`${o}.id === operation.id`,
+			(click)=`changeOperation(${o})`)
+			i.fas.fa-angle-right
+			span.text-truncate
+				| {{ #{o}?.name | empty }}
+
++defer()
+	div
+		section.page-title(style='background-image:url(assets/assets1/images/background/page-title.jpg);')
+			.auto-container
+				.title-outer
+					h1.title
+						| {{ operation?.name | empty }}
+					ul.page-breadcrumb
+						li
+							a(routerLink='/')
+								| {{ "BASE.LABEL.HOME" | translate }}
+						li
+							a(routerLink='/service')
+								| {{ "BASE.LABEL.SERVICES" | translate }}
+						li
+							| {{ operation?.name | empty }}
+		section.services-details
+			.container
+				.row
+					.col-xl-4.col-lg-4
+						.service-sidebar
+							.sidebar-widget.service-sidebar-single
+								.service-sidebar.wow.fadeInUp(data-wow-delay='0.1s' data-wow-duration='1200m')
+									.service-list
+										ul
+											+for('o of operations; track o')
+												+type('o')
+							.sidebar-widget.banner-widget
+								.widget-content(style='background-image:url(assets/assets1/images/resource/contact.jpg);')
+									.shape(style='background-image:url(assets/assets1/images/resource/overlay-shape.png);')
+									.content-box
+										.icon-box
+											i.lnr.lnr-icon-pie-chart
+										h3
+											| {{ "BASE.LABEL.SERVICE" | translate }}
+											br
+											| {{ "BASE.LABEL.BEST_SERVICE" | translate }}
+											br
+											| {{ "BASE.LABEL.GOOD" | translate }}
+										a.theme-btn.btn-style-one.light(routerLink='/contact')
+											span.btn-title
+												| {{ "BASE.LABEL.CONTACT_US" | translate }}
+					.col-xl-8.col-lg-8
+						.services-details__content
+							+if('loaded')
+								cub-paragraph-editor(
+									readonly,
+									[data]='operation?.description.data')
+							+else
+								.text-center
+									cub-loading
+							//- .mt-25
+							//- 	h3
+							//- 		| Câu hỏi thường gặp
+							//- 	p
+							//- 		| Dưới đây là trọn bộ danh sách các công việc bạn cẩn thực hiện để chuẩn bị tốt nhất cho ngày phỏng vấn xin visa đi Mỹ của mình.
+							//- 	ul.accordion-box.wow.fadeInRight
+							//- 		li.active-block.accordion.block
+							//- 			.active.acc-btn
+							//- 				| Đặt lịch phỏng vấn visa Mỹ
+							//- 				.icon.fa.fa-plus
+							//- 			.current.acc-content
+							//- 				.content
+							//- 					.text
+							//- 						| Đây là hướng dẫn đặt lịch hẹn phỏng vấn visa Mỹ mà bạn phải thực hiện đầu tiên, để có cho mình lịch hẹn phỏng vấn visa Mỹ sớm nhất. Để đăng ký phỏng vấn visa Mỹ, bạn truy cập vào đường link http://www.ustraveldocs.com/vn/vn-steps.asp, điền thông tin theo yêu cầu và đến đóng phí ở bưu điện được chỉ định.
+							//- 		li.accordion.block
+							//- 			.acc-btn
+							//- 				| Chuẩn bị hồ sơ phỏng vấn visa Mỹ
+							//- 				.icon.fa.fa-plus
+							//- 			.acc-content
+							//- 				.content
+							//- 					.text
+							//- 						| Nhìn chung, bộ hồ sơ xin visa các nước khá giống nhau, đều bao gồm đơn đăng ký xin visa theo mẫu, hộ chiếu còn hiệu lực, các loại giấy chứng minh tài sản, công việc, thu nhập, ảnh chụp chân dung, biên lai nộp lệ phí xin cấp visa, lịch trình chi tiết của chuyến đi, các chứng nhận đặt phòng, vé máy bay khứ hồi, và một số giấy tờ khác, theo quy định của từng Đại Sứ Quán.
+							//- 		li.accordion.block
+							//- 			.acc-btn
+							//- 				| Sắp xếp hồ sơ phỏng vấn visa Mỹ
+							//- 				.icon.fa.fa-plus
+							//- 			.acc-content
+							//- 				.content
+							//- 					.text
+							//- 						| Để gây thiện cảm với nhân viên Đại sứ quán Hoa Kỳ ở Hà Nội hoặc nhân viên Tổng Lãnh sự quán Hoa Kỳ ở TP HCM, bạn nên nắm rõ cách sắp xếp hồ sơ phỏng vấn visa Mỹ một cách khoa học du đó là hồ sơ xin visa Mỹ du lịch, visa Mỹ thăm thân hay visa Mỹ công tác. Bạn nên gom thành từng nhóm giấy tờ mà cơ quan xét duyệt muốn tìm hiểu theo thứ tự sau đây.
+							//- 		li.accordion.block
+							//- 			.acc-btn
+							//- 				| Giấy tờ chứng minh sự ràng buộc của bạn với Việt Nam
+							//- 				.icon.fa.fa-plus
+							//- 			.acc-content
+							//- 				.content
+							//- 					.text
+							//- 						| Đại sứ quán cần biết bạn sang Mỹ với mục đích rõ ràng và có lý do chắc chắn để quay về, không lợi dụng cơ hội để ở lại lao động bất hợp pháp.

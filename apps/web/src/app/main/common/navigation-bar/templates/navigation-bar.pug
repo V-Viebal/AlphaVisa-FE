@@ -1,0 +1,176 @@
+mixin navigation
+	ul.navigation((mouseup)='changeRoute()')
+		li([class.current]='currentMainModule === ""')
+			a(routerLink='/')
+				| {{ "BASE.LABEL.HOME" | translate }}
+		li.pr-16.dropdown([class.current]='currentMainModule === "service"')
+			a.w-80(routerLink='/service')
+				| {{ "BASE.LABEL.SERVICE" | translate }}
+			ul
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
+						| {{ "BASE.LABEL.OVERSEA" | translate }}
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
+						| {{ "BASE.LABEL.TOURISM" | translate }}
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
+						| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
+						| {{ "BASE.LABEL.IMMIGRATION" | translate }}
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
+						| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
+				li
+					a([routerLink]='[ "/service/detail", OPERATION_TYPE.VISIT ]')
+						| {{ "BASE.LABEL.VISIT" | translate }}
+		li([class.current]='currentMainModule === "news"')
+			a(
+				aria-current='page',
+				routerLink='/news')
+				| {{ "BASE.LABEL.NEWS" | translate }}
+		li([class.current]='currentMainModule === "client-success"')
+			a(
+				aria-current='page',
+				routerLink='/client-success')
+				| {{ "BASE.LABEL.CLIENT_SUCCESS" | translate }}
+		li([class.current]='currentMainModule === "about-us"')
+			a(
+				aria-current='page',
+				routerLink='/about-us')
+				| {{ "BASE.LABEL.ABOUT_US" | translate }}
+		li([class.current]='currentMainModule === "contact"')
+			a(
+				aria-current='page',
+				routerLink='/contact')
+				| {{ "BASE.LABEL.CONTACT" | translate }}
+
+header.main-header.header-style-two
+	.header-top
+		.inner-container
+			.top-left
+				ul.list-style-one
+					li
+						i.fa.fa-envelope
+						a([href]='"mailto:" + config?.email | empty' rel='noopener noreferrer') {{ config?.email | empty }}
+					li
+						i.fa.fa-phone-square
+						a([href]='"tel:" + config?.phone | empty' rel='noopener noreferrer') {{ config?.phone | phoneFormat | empty }}
+			.top-right
+				ul.social-icon-one
+					li
+						a(
+							target='_blank',
+							[href]='config?.socialLink | empty')
+							.icon-social.icon-facebook(alt='')
+					li
+						a(
+							target='_blank',
+							href='zalo://open')
+							//- [href]='config?.socialLink | empty')
+							.icon-social.icon-zalo(alt='')
+	.header-lower
+		.main-box
+			.logo-box
+				.logo
+					a(routerLink='/')
+						img(src='assets/assets1/images/logo-vertical.png' height='70' alt='Alpha Visa' title='Alpha Visa')
+			.nav-outer
+				nav.nav.main-menu
+					+navigation
+				.outer-box
+					a.info-btn([href]='"tel:" + config?.phone | empty' rel='noopener noreferrer')
+						img.icon(src='assets/assets1/images/icons/icon-phone.png' alt='')
+						small.title
+							| {{ "BASE.LABEL.CALL_ANYTIME" | translate }}
+						strong.text {{ config?.phone | phoneFormat | empty }}
+					//- .ui-btn-outer
+					//- 	button.ui-btn.ui-btn.search-btn
+					//- 		span.icon.lnr.lnr-icon-search
+					a.theme-btn.btn-style-one(routerLink='/contact')
+						span.btn-title
+							| {{ "BASE.LABEL.BOOK_CONSULTATION" | translate }}
+					.mobile-nav-toggler((mouseup)='toggleMobileMenu()')
+						span.icon.lnr-icon-bars
+	.mobile-menu(
+		#mobileMenu)
+		.menu-backdrop
+		nav.menu-box
+			.upper-box
+				.nav-logo
+					a(routerLink='/')
+						img(src='assets/assets1/images/logo-vertical.png' height='70' alt='Alpha Visa' title='Alpha Visa')
+				.close-btn((click)='toggleMobileMenu()')
+					i.icon.fa.fa-times
+			ul.navigation.clearfix
+				li
+					a(routerLink='/')
+						| {{ "BASE.LABEL.HOME" | translate }}
+				li
+					a(routerLink='/service')
+						| {{ "BASE.LABEL.SERVICE" | translate }}
+				li
+					a(
+						aria-current='page',
+						routerLink='/news')
+						| {{ "BASE.LABEL.NEWS" | translate }}
+				li
+					a(
+						aria-current='page',
+						routerLink='/client-success')
+						| {{ "BASE.LABEL.CLIENT_SUCCESS" | translate }}
+				li
+					a(
+						aria-current='page',
+						routerLink='/about-us')
+						| {{ "BASE.LABEL.ABOUT_US" | translate }}
+				li
+					a(
+						aria-current='page',
+						routerLink='/contact')
+						| {{ "BASE.LABEL.CONTACT" | translate }}
+			ul.contact-list-one.light
+				li
+					.contact-info-box
+						i.icon.lnr-icon-phone-handset
+						span.title
+							| {{ "BASE.LABEL.CALL_ANYTIME" | translate }}
+						.text
+							a([href]='"/tel:" + config?.phone | empty') {{ config?.phone | phoneFormat | empty }}
+				li
+					.contact-info-box
+						span.icon.lnr-icon-envelope1
+						span.title
+							| {{ "BASE.LABEL.SEND_EMAIL" | translate }}
+						.text
+							a([href]='"/mailto:" + config?.email | empty') {{ config?.email | empty }}
+				li
+					.contact-info-box
+						span.icon.lnr-icon-clock
+						span.title
+							| {{ "BASE.LABEL.CONSULTATION" | translate }}
+						.text
+							| {{ "BASE.LABEL.ALL_TIME" | translate }}
+	.search-popup
+		span.search-back-drop
+		button.close-search
+			span.fa.fa-times
+		.search-inner
+			form(method='post' action='')
+				.form-group
+					input(type='search' name='"BASE.LABEL.SEARCH" | translate' value='' placeholder='"BASE.LABEL.TYPE_SEARCH" | translate' required='')
+					button(type='submit')
+						i.fa.fa-search
+	.sticky-header([class.fixed-header]='isSticky')
+		.auto-container
+			.inner-container
+				.logo
+					a(routerLink='/')
+						img(src='assets/assets1/images/logo-vertical.png' height='70' alt='Alpha Visa' title='Alpha Visa')
+				.nav-outer
+					nav.main-menu
+						.navbar-collapse.show.collapse.clearfix
+							+navigation
+					.mobile-nav-toggler((mouseup)='toggleMobileMenu()')
+						span.icon.lnr-icon-bars

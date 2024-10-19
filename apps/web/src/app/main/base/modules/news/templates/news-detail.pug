@@ -1,0 +1,99 @@
+mixin post(item)
+	li.cursor([routerLink]=`[ "/news/detail", ${item}?.id ]`)
+		.sidebar__post-image
+			img([src]=`${item}?.thumbnail?.url` [alt]=`${item}?.thumbnail?.fileName`)
+		.sidebar__post-content
+			.font-size-16.text-truncate-multi-line.font-weight-600.maw-250
+				| {{ #{item}?.topic | empty }}
+			small
+				| {{ #{item}?.createdAt | date : 'dd/MM/yyyy' }}
+
+section.blog-details
+	.container
+		.row
+			.col-xl-8.col-lg-7
+				.blog-details__left
+					+if('loaded')
+						.blog-details__title
+							| {{ news?.topic | empty }}
+						ul.list-unstyled.blog-details__meta.mb-12
+							li
+								i.fas.fa-user-circle
+								|  Admin
+							li
+								i.fas.fa-calendar
+								|  {{ news?.createdAt | date : 'dd/MM/yyyy hh:mm'}}
+						.blog-details__img
+							img([src]=`news?.thumbnail?.url` [alt]=`news?.thumbnail?.fileName`)
+							.blog-details__date
+								span.day HOT
+								span.month News
+						.blog-details__description
+							| {{ news?.description | empty }}
+						+if('news?.description?.length')
+							cub-divider
+						.blog-details__content
+							cub-paragraph-editor(
+								readonly,
+								[data]='news?.content.data')
+					+else
+						.layout-row.layout-align-center-start
+							cub-loading
+
+			.col-xl-4.col-lg-5
+				.sidebar
+					.sidebar__single.sidebar__post
+						h3.sidebar__title
+							| {{ "BASE.LABEL.LATEST_NEWS" | translate }}
+						ul.sidebar__post-list.list-unstyled
+							+for('item of newss; let index = $index; track item')
+								+if('index < 6 && item?.id !== news?.id')
+									+post('item')
+				.form-column.mt-20
+					.inner-column
+						.form-outer
+							.contact-form.team-contact-form.wow.fadeInLeft.p-20
+								.sec-title.mb-20
+									h2.pv-10.section-title__title.font-size-20
+										| {{ "BASE.LABEL.PLEASE_CONTACT_US" | translate }}
+								form#contact-form(
+									[formGroup]='emailForm',
+									(submit)='sendEmail()')
+									.form-group
+										input(
+											required,
+											cubFormFieldInput,
+											type='text',
+											name='full_name',
+											formControlName='fullName',
+											[placeholder]='"BASE.PLACEHOLDER.INPUT_NAME" | translate')
+									.form-group
+										input(
+											required,
+											cubFormFieldInput,
+											type='number',
+											name='phone_number',
+											formControlName='phone',
+											[placeholder]='"BASE.PLACEHOLDER.INPUT_PHONENUMBER" | translate')
+									.form-group
+										input(
+											required,
+											cubFormFieldInput,
+											type='text',
+											name='Email',
+											formControlName='email',
+											[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate')
+									.form-group
+										textarea(
+											cubFormFieldInput,
+											type='text',
+											name='message',
+											formControlName='description',
+											[placeholder]='"BASE.PLACEHOLDER.INPUT_MESSAGE" | translate')
+									.form-group
+										button.theme-btn.btn-style-three(
+											type='submit',
+											name='submit-form',
+											[disabled]='emailForm?.invalid')
+											span.btn-title
+												| {{ "BASE.LABEL.SEND_MESSAGE" | translate }}

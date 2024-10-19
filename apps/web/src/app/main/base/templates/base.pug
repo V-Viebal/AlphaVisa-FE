@@ -1,0 +1,29 @@
+#__nuxt
+	.page-wrapper
+		navigation-bar([config]='config')
+		router-outlet
+		footer-bar(
+			#footer,
+			[config]='config')
+		.stick-right-bottom
+			+if('showScrollTop')
+				a.scroll-to-top.scroll-to-target(
+					(click)='scrollToTop()')
+					span.fa.fa-angle-up
+			+else
+				a.scroll-to-top.scroll-to-target(
+					(click)='scrollToBottom()')
+					span.fa.fa-angle-down
+			a.icon-social(
+				target='_blank',
+				[href]='config?.socialLink | empty')
+				.icon.icon-facebook(alt='')
+			a.icon-social(
+				target='_blank',
+				href='zalo://open')
+				.icon.icon-zalo(alt='')
+			a.icon-social(
+				target='_blank',
+				[href]='"tel:" + config?.phone | empty')
+				.icon.icon-phone-social(alt='')
+#bottom

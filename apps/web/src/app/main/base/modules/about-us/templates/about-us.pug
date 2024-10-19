@@ -1,0 +1,53 @@
+section.about-section
+	.auto-container
+		.row
+			.content-column.col-xl-6.col-lg-6.col-md-12.col-sm-12.wow.fadeInRight(data-wow-delay='600ms')
+				.inner-column
+					.sec-title
+						span.sub-title
+							| {{ "BASE.LABEL.ABOUT_COMPANY" | translate }}
+						h2
+							| {{ "BASE.LABEL.MAIN_TITLE" | translate }}
+							br
+							span.color3
+								| {{ "BASE.LABEL.THE_BEST" | translate }}
+						h4
+							| {{ "BASE.LABEL.SUB_TITLE" | translate }}
+						.text
+							| {{ "BASE.LABEL.COMPANY_DESCRIPTION" | translate }}
+					.row
+						.about-block.col-lg-6.col-md-6
+							.inner
+								i.icon.flaticon-passport-16
+								h6.title
+									| {{ "BASE.LABEL.BEST_SERVICE_TITLE" | translate }}
+						.text-block.col-lg-6.col-md-6
+							.inner
+								.text
+									| {{ "BASE.LABEL.BEST_SERVICE_DESCRIPTION" | translate }}
+					.btm-box
+						a.router-link-active.router-link-exact-active.theme-btn.btn-style-one(
+							aria-current='page', routerLink='/contact')
+							span.btn-title
+								| {{ "BASE.LABEL.BUTTON_TEXT" | translate }}
+			.image-column.col-xl-6.col-lg-6.col-md-12.col-sm-12
+				.inner-column.wow.fadeInLeft
+					.row
+						.column.col-lg-6.col-md-6
+							.image-box
+								figure.map
+									img(src='assets/assets1/images/icons/map.png' alt='')
+								figure.image-1.overlay-anim.wow.fadeInUp
+									img(src='assets/assets1/images/resource/about-1.jpg' alt='')
+								figure.image-2.overlay-anim.wow.fadeInRight
+									img(src='assets/assets1/images/resource/about-2.jpg' alt='')
+						.column.col-lg-6.col-md-6
+							.image-box
+								figure.image-3.overlay-anim.wow.fadeInLeft
+									img(src='assets/assets1/images/resource/about-3.jpg' alt='')
+								.experience.bounce-y
+									.inner
+										i.icon.flaticon-loyalty
+										.text
+											strong {{ "BASE.LABEL.SATISFIED_CLIENTS.COUNT" | translate }}
+											| {{ "BASE.LABEL.SATISFIED_CLIENTS.DESCRIPTION" | translate }}
