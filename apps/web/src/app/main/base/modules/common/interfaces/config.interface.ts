@@ -5,6 +5,7 @@ export type Config = {
 	address: string;
 	addressLink: string;
 	socialLink: string;
+	zaloLink: string;
 }
 
 export enum LANGUAGES {

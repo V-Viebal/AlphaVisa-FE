@@ -2,6 +2,7 @@
 @import 'src/scss/partials/mixin';
 
 $drawer-width: var(--drawer-width, 320px);
+$drawer-min-width: var(--drawer-min-width, 64);
 
 .cub-drawer {
 	$self: &;
@@ -28,30 +29,23 @@ $drawer-width: var(--drawer-width, 320px);
 			@include transition(margin-left);
 
 			order: -1;
-			margin-left: calc($drawer-width * -1);
-			border-top-right-radius: 20px;
+			margin-left: calc(($drawer-width - $drawer-min-width) * -1);
 
 			will-change: margin-left;
 
+			&:hover {
+				#{ $self }__btn-open {
+					visibility: visible;
+					opacity: 1;
+				}
+			}
+
 			> #{ $self }__btn-open {
 				left: 100%;
-
-				padding: 4px 8px 4px 2px;
-				border: {
-					top-right-radius: 20px;
-					bottom-right-radius: 20px;
-				};
-
-				&:hover {
-					@include transition(padding-right);
-
-					padding-right: 12px;
-				}
 			}
 
 			> #{ $self }__content {
 				padding: 12px;
-				border-top-right-radius: 20px;
 
 				> #{ $self }__resizer {
 					right: 0;
@@ -60,7 +54,6 @@ $drawer-width: var(--drawer-width, 320px);
 
 			~ #{ $content } {
 				padding-left: 12px;
-				border-top-left-radius: 24px;
 			}
 		}
 
@@ -69,30 +62,16 @@ $drawer-width: var(--drawer-width, 320px);
 
 			order: 1;
 			padding-left: 12px;
-			margin-right: calc($drawer-width * -1);
-			border-top-left-radius: 24px;
+			margin-right: calc(($drawer-width - $drawer-min-width) * -1);
 
 			will-change: margin-right;
 
 			> #{ $self }__btn-open {
 				right: 100%;
-
-				padding: 4px 2px 4px 8px;
-				border: {
-					top-left-radius: 20px;
-					bottom-left-radius: 20px;
-				};
-
-				&:hover {
-					@include transition(padding-left);
-
-					padding-left: 12px;
-				}
 			}
 
 			> #{ $self }__content {
 				padding: 8px 12px 8px 8px;
-				border-top-left-radius: 12px;
 
 				> #{ $self }__resizer {
 					left: 0;
@@ -101,20 +80,12 @@ $drawer-width: var(--drawer-width, 320px);
 
 			~ #{ $content } {
 				padding-right: 12px;
-				border-top-right-radius: 24px;
 			}
 		}
 	}
 
 	// Opened state
 	@at-root {
-		&:not(&#{ $self }--opened) {
-			> #{ $self }__btn-open {
-				visibility: visible;
-				opacity: 1;
-			}
-		}
-
 		&#{ $self }--opened {
 			&#{ $self }-left {
 				margin: {
@@ -160,14 +131,27 @@ $drawer-width: var(--drawer-width, 320px);
 		@include visible-transition(opacity);
 
 		position: absolute;
-		top: 16.25px;
+		top: 0;
+		bottom: 0;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: -16px;
+		height: fit-content;
+		padding: 6px;
+		border-radius: 50%;
 
 		visibility: hidden;
 		opacity: 0;
 
-		color: $color-white;
-		background-color: $color-transparent-dark-grey-50;
+		color: $color-black;
+		background-color: $color-white;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 		cursor: pointer;
+
+		&:hover {
+			scale: 1.1;
+			@include transition(scale);
+		}
 	}
 }

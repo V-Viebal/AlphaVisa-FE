@@ -18,6 +18,7 @@
 				"main": "apps/web/src/main.ts",
 				"tsConfig": "apps/web/tsconfig.json",
 				"webWorkerTsConfig": "apps/web/src/tsconfig.worker.json",
+				"ngswConfigPath": "apps/web/ngsw-config.json",
 				"outputHashing": "none",
 				"crossOrigin": "use-credentials",
 				"aot": false,
@@ -28,7 +29,7 @@
 				"extractLicenses": false,
 				"buildOptimizer": false,
 				"serviceWorker": false,
-				"statsJson": true,
+				"statsJson": false,
 				"assets": [
 					{
 						"glob": "**/*",
@@ -57,7 +58,7 @@
 				],
 				"scripts": [
 					"node_modules/swiper/swiper-bundle.min.js",
-					"apps/web/src/assets/js/preload.js"
+					"apps/web/preload-font.js"
 				],
 				"stylePreprocessorOptions": {
 					"includePaths": ["apps/web"]
@@ -133,7 +134,6 @@
 					"namedChunks": false,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"statsJson": false,
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
@@ -154,7 +154,6 @@
 					"extractLicenses": true,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"statsJson": false,
 					"outputPath": "dist/production",
 					"fileReplacements": [
 						{

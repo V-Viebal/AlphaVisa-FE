@@ -8,13 +8,17 @@ import {
 import _ from 'lodash';
 
 import {
-	Unsubscriber
+	Unsubscriber,
+	untilCmpDestroyed
 } from '@core';
 
 import {
+	OperationDetail,
 	OperationType
 } from '../interfaces';
 import moment, { Moment } from 'moment';
+import { OperationService } from '../services';
+import { finalize } from 'rxjs';
 
 @Unsubscriber()
 @Component({
@@ -29,8 +33,14 @@ export class OperationComponent implements OnInit {
 	protected readonly SERVICE_TYPE: typeof OperationType
 		= OperationType;
 
+	protected operations: OperationDetail[];
 	protected today: Moment = moment();
+	protected operationsMap: Map<number, OperationDetail[]>
+		= new Map<number, OperationDetail[]>();
 
+
+	private readonly _operationService: OperationService
+		= inject( OperationService );
 	private readonly _cdRef: ChangeDetectorRef
 		= inject( ChangeDetectorRef );
 
@@ -45,7 +55,30 @@ export class OperationComponent implements OnInit {
 	 * @return {void}
 	 */
 	private _initData() {
-		this._cdRef.markForCheck();
+		this._operationService
+		.getAll()
+		.pipe(
+			finalize( () => {
+				this._cdRef.detectChanges();
+			} ),
+			untilCmpDestroyed( this )
+		)
+		.subscribe({
+			next: ( operations: OperationDetail[] ) => {
+				this.operations
+					= operations;
+
+				for( const operation of operations ) {
+					this.operationsMap.set(
+						operation.type,
+						this.operationsMap.get( operation.type )
+							? [ ...this.operationsMap.get( operation.type ),
+								operation ]
+							: [ operation ]
+					);
+				}
+			},
+		});
 	}
 
 }

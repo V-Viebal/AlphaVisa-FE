@@ -176,12 +176,14 @@ export class OperationComponent implements OnInit, OnDestroy {
 			next: ( answer: boolean ) => {
 				if ( !answer ) return;
 
-				this.descriptionData
-					= undefined;
-				this.operation
-					= undefined;
-
 				this.popup.close();
+
+				setTimeout(() => {
+					this.descriptionData
+						= undefined;
+					this.operation
+						= undefined;
+				});
 			},
 		});
 
@@ -206,16 +208,19 @@ export class OperationComponent implements OnInit, OnDestroy {
 					this.operations.unshift( this.operation );
 					this._operationsBk.unshift( this.operation );
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'OPERATION.MESSAGE.SUCCESS'
 					);
 
-					this.descriptionData = undefined;
-					this.popup.close();
-					this.titleControl.reset();
-					this.typeControl.reset();
-					this.operation = undefined;
+					setTimeout(() => {
+						this.descriptionData = undefined;
+						this.titleControl.reset();
+						this.typeControl.reset();
+						this.operation = undefined;
+					});
 				},
 				error: () => {
 					this._toastService
@@ -251,18 +256,20 @@ export class OperationComponent implements OnInit, OnDestroy {
 						);
 					this._operationsBk[ indexBk ] = this.operation;
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'OPERATION.MESSAGE.SUCCESS'
 					);
 
-					this.descriptionData
-						= undefined;
-
-					this.popup.close();
-					this.titleControl.reset();
-					this.typeControl.reset();
-					this.operation = undefined;
+					setTimeout(() => {
+						this.descriptionData
+							= undefined;
+						this.titleControl.reset();
+						this.typeControl.reset();
+						this.operation = undefined;
+					});
 				},
 				error: () => {
 					this._toastService

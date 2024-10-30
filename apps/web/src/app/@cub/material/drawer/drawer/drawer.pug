@@ -16,8 +16,8 @@ ng-template(#content)
 		ng-container(*ngTemplateOutlet='content')
 .cub-drawer__btn-open(
 	[cubTooltip]='"CUB.LABEL.EXPAND" | translate',
-	[cubTooltipPosition]='position === "right" ? "before" : "after"',
-	(click)='open()')
+	[cubTooltipPosition]='position === "right" || opened ? "before" : "after"',
+	(click)='toggle()')
 	cub-icon(
 		size='20px',
-		[name]='position === "right" ? "chevron-double-left" : "chevron-double-right"')
+		[name]='position === "right" || opened ? "chevron-left" : "chevron-right"')

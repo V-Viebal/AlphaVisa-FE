@@ -13,11 +13,11 @@ import {
 } from '@core';
 import { BaseService } from '@main/base/services';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CUBToastService } from '@cub/material';
 import { Email } from '@main/base/interfaces';
 import { finalize } from 'rxjs';
 import { Config } from '../../common/interfaces';
 import { ConfigService } from '../../common/services';
+import Swal from 'sweetalert2';
 
 @Unsubscriber()
 @Component({
@@ -34,8 +34,6 @@ export class ContactComponent implements OnInit {
 
 	private readonly _configService: ConfigService
 		= inject( ConfigService );
-	private readonly _toastService: CUBToastService
-		= inject( CUBToastService );
 	private readonly _fb: FormBuilder
 		= inject( FormBuilder );
 	private readonly _baseService: BaseService
@@ -71,10 +69,15 @@ export class ContactComponent implements OnInit {
 				email: this.emailForm.controls.email.value,
 			};
 
-		this._toastService
-		.success(
-			'BASE.MESSAGE.SUCCESS'
-		);
+		Swal.fire({
+			title: 'Gửi thành công!',
+			text: 'Chúng tôi sẽ nhanh chóng liên hệ với bạn.',
+			icon: 'success',
+			confirmButtonText: 'Cảm ơn bạn',
+			backdrop: false,
+			timer: 2500,
+		});
+		this.emailForm.markAsPristine();
 
 		this._baseService.sendEmail( this.email )
 		.pipe(
@@ -85,10 +88,14 @@ export class ContactComponent implements OnInit {
 		)
 		.subscribe({
 			error: () => {
-				this._toastService
-				.danger(
-					'BASE.MESSAGE.FAIL'
-				);
+				Swal.fire({
+					title: 'Gửi thất bại!',
+					text: 'Làm phiền bạn kiểm tra internet và gửi lại sau.',
+					icon: 'error',
+					confirmButtonText: 'Cảm ơn bạn',
+					backdrop: false,
+					timer: 2500,
+				});
 			},
 		});
 	}

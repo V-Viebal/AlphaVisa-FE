@@ -5,10 +5,8 @@ import {
 	ElementRef,
 	Input,
 	OnInit,
-	HostBinding,
 	TemplateRef,
 	ViewChild,
-	ViewContainerRef,
 	inject,
 	Renderer2,
 	AfterViewInit
@@ -41,20 +39,12 @@ import {
 	CUBConfirmService
 } from '@cub/material/confirm';
 import {
-	CUBPopupComponent,
-	CUBPopupService
-} from '@cub/material/popup';
-import {
 	CUBMenuComponent
 } from '@cub/material/menu';
 import {
-	CUBDialogRef,
-	CUBDialogService
+	CUBDialogRef
 } from '@cub/material/dialog';
 
-import {
-	DialogHamburgerComponent
-} from '../modules/hamburger';
 import {
 	NavigationBarService
 } from '../services';
@@ -72,15 +62,10 @@ import { filter } from 'rxjs';
 export class NavigationBarComponent
 implements OnInit, AfterViewInit {
 
-	@ViewChild( 'explorePopup' )
-	public explorePopup: CUBPopupComponent;
 	@ViewChild( 'accountSettingsMenu' )
 	public accountSettingsMenu: CUBMenuComponent;
 	@ViewChild('mobileMenu')
 	public mobileMenu: ElementRef | undefined;
-
-	@HostBinding( 'class.navigation-bar--no-border' )
-	get isBorderExist(): boolean { return this.explorePopup?.isOpened; }
 
 	@Input() public config: Config;
 	@Input() @DefaultValue() @CoerceBoolean()
@@ -90,8 +75,8 @@ implements OnInit, AfterViewInit {
 		= inject( ElementRef );
 
 	public isSticky: boolean;
+	public isMobileMenuVisible: boolean;
 
-	protected isMobileMenuVisible: boolean;
 	protected canInviteUsers: boolean;
 	protected canRedirect: boolean;
 	protected currentMainModule: string;
@@ -116,12 +101,6 @@ implements OnInit, AfterViewInit {
 		= inject( ActivatedRoute );
 	private readonly _router: Router
 		= inject( Router );
-	private readonly _popupService: CUBPopupService
-		= inject( CUBPopupService );
-	private readonly _vcRef: ViewContainerRef
-		= inject( ViewContainerRef );
-	private readonly _dialogService: CUBDialogService
-		= inject( CUBDialogService );
 	private readonly _renderer: Renderer2
 		= inject( Renderer2 );
 
@@ -139,7 +118,6 @@ implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
-		this._initData();
 		this._initSubscription();
 		this.changeRoute();
 	}
@@ -161,7 +139,7 @@ implements OnInit, AfterViewInit {
 		this._cdRef.markForCheck();
 	}
 
-	protected toggleMobileMenu() {
+	public toggleMobileMenu() {
 		this.isMobileMenuVisible = !this.isMobileMenuVisible;
 
 		if ( this.isMobileMenuVisible ) {
@@ -178,29 +156,6 @@ implements OnInit, AfterViewInit {
 
 			this._cdRef.detectChanges();
 		}, 300);
-	}
-
-	/**
-	 * @return {void}
-	 */
-	protected openExplorePopup() {
-		this.accountSettingsMenu?.close();
-
-		if ( this.explorePopup.isOpened ) return;
-
-		this._popupService
-		.open(
-			this.elementRef.nativeElement,
-			this.explorePopup,
-			undefined,
-			{
-				viewContainerRef: this._vcRef,
-				hasBackdrop: true,
-				offsetY: -12,
-				width: '100%',
-				position: 'start-below',
-			}
-		);
 	}
 
 	/**
@@ -224,42 +179,9 @@ implements OnInit, AfterViewInit {
 	/**
 	 * @return {void}
 	 */
-	protected openHamburgerDialog() {
-		if ( this.hamburgerDialog?.isOpened ) return;
-
-		this.hamburgerDialog
-			= this._dialogService
-			.open(
-				DialogHamburgerComponent,
-				{},
-				{
-					resizable: true,
-					overlayConfig: {
-						width: '300px',
-						autoFocus: true,
-					},
-				}
-			);
-
-		this.hamburgerDialog
-		.afterClosed()
-		.pipe( untilCmpDestroyed( this ) )
-		.subscribe({
-			next: () => this._cdRef.markForCheck(),
-		});
-	}
-
-	/**
-	 * @return {void}
-	 */
 	protected navigateToMainPath() {
 		this._handleNavigate( () => this._navigateToMainPath() );
 	}
-
-	/**
-	 * @return {void}
-	 */
-	private _initData() {}
 
 	/**
 	 * @return {void}

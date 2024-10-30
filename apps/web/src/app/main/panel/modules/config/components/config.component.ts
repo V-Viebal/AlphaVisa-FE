@@ -74,6 +74,7 @@ export class ConfigComponent implements OnInit {
 				phone: undefined,
 				email: undefined,
 				socialLink: undefined,
+				zaloLink: undefined,
 				addressLink: undefined,
 				addressMap: undefined,
 				address: undefined,
@@ -151,6 +152,7 @@ export class ConfigComponent implements OnInit {
 				address: this.configForm.controls.address.value,
 				email: this.configForm.controls.email.value,
 				socialLink: this.configForm.controls.socialLink.value,
+				zaloLink: this.configForm.controls.zaloLink.value,
 			};
 
 		this._configService

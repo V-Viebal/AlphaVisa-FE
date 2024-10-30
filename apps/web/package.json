@@ -1,6 +1,6 @@
 {
 	"name": "web",
-	"version": "0.0.1",
+	"version": "0.0.8",
 	"description": "Web",
 	"authors": "Web Team",
 	"private": true,
@@ -14,7 +14,8 @@
 		"aot": "nx serve --host localhost --configuration=aot",
 		"dev": "nx serve --host localhost --configuration=dev",
 		"build": "nx build --configuration=local --output-path ./dist/web",
-		"build-prod": "nx build --configuration=production && gzipper c ../../dist/production --include js,css,html,svg,eot,ttf,otf,woff,woff2,png,jpg,gif,webp --output-file-format [filename].[ext].gz ../../dist/compressed"
+		"build-prod": "nx build --configuration=production && node compress.js",
+		"build-prod-gzip": "nx build --configuration=production && gzipper c ../../dist/production --exclude gz --output-file-format [filename].[ext].gz ../../dist/compressed"
 	},
 	"engines": {
 		"node": ">=20.15.0",

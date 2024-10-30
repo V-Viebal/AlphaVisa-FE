@@ -1,43 +1,59 @@
+// Helper function to preload fonts
+function preloadFont(
+	fontName,
+	fontUrl,
+	weight = 'normal',
+	style = 'normal'
+) {
+	const font
+		= new FontFace(
+			fontName,
+			`url(${fontUrl})`,
+			{
+				weight: weight,
+				style: style,
+				display: 'swap',
+			}
+		);
+	return font.load().then( loadedFont => {
+		document.fonts.add( loadedFont );
+	}).catch( error => {
+		console.error(`Error Preload font ${fontName}:`, error );
+	});
+}
+
+// Helper function to lazyload fonts
+function lazyloadFont(
+	fontName,
+	fontUrl,
+	weight = 'normal',
+	style = 'normal'
+) {
+	const font
+		= new FontFace(
+			fontName,
+			`url(${fontUrl})`,
+			{
+				weight: weight,
+				style: style,
+				display: 'swap',
+			}
+		);
+	return font.load().then( loadedFont => {
+		document.fonts.add( loadedFont );
+	}).catch( error => {
+		console.error(`Error Lazyload font ${fontName}:`, error );
+	});
+}
+
 /**
- * Preload fonts and icons
+ * Preload fonts
  */
 document.addEventListener( 'DOMContentLoaded', () => {
-	// Helper function to preload fonts
-	function preloadFont(
-		fontName,
-		fontUrl,
-		weight = 'normal',
-		style = 'normal'
-	) {
-		const font
-			= new FontFace(
-				fontName,
-				`url(${fontUrl})`,
-				{
-					weight: weight,
-					style: style,
-					display: 'swap',
-				}
-			);
-		return font.load().then( loadedFont => {
-			document.fonts.add( loadedFont );
-		});
-	}
 
-	// Preload all fonts in parallel
+	// Preload fonts in parallel
 	const fontsToLoad = [
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-Thin-100.ttf?hs3yr2', '100'),
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-ExtraLight-200.ttf?hs3yr2', '200'),
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-Light-300.ttf?hs3yr2', '300'),
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-Regular-400.ttf?hs3yr2', '400'),
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-Medium-500.ttf?hs3yr2', '500'),
-		preloadFont('Inter', '/assets/fonts/Inter/body/Inter-SemiBold-600.ttf?hs3yr2', '600'),
-		preloadFont('InterHeading', '/assets/fonts/Inter/heading/InterTight-Medium-500.ttf?hs3yr2', '500'),
-
-		preloadFont(
-			"flaticon_visa",
-			'/assets/assets1/_nuxt/flaticon_visa.C9ljdjtP.ttf'
-		),
+		preloadFont('flaticon_visa', '/assets/assets1/_nuxt/flaticon_visa.C9ljdjtP.ttf'),
 
 		// Manrope fonts for different weights and unicode ranges
 		preloadFont("Manrope", '/assets/assets1/_nuxt/Manrope-300-2.C1zWlyYG.woff2', "300"),
@@ -68,19 +84,34 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		preloadFont('Manrope', '/assets/assets1/s/manrope/v15/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk59E-_F.ttf', '800'),
 	];
 
-	// Load all fonts
-	Promise.all(fontsToLoad)
-	.then(() => {
-		console.log( 'All fonts loaded successfully' );
-	})
-	.catch((err) => {
-		console.error( 'Failed to load fonts', err );
-	});
+	// Preload fonts
+	Promise.all( fontsToLoad )
+	.then();
 
-	// Load Icons (stylesheet for Nucleo icons)
+	// Preload font icons
 	const linkElement = document.createElement( 'link' );
-
 	linkElement.rel = 'stylesheet';
-	linkElement.href = 'assets/fonts/Nucleo/Nucleo.css?hs3yr4';
+	linkElement.href = 'assets/fonts/Nucleo/Nucleo.css?hs3yr9';
 	document.head.appendChild( linkElement );
+});
+
+/**
+ * Lazyload fonts
+ */
+window.addEventListener( 'load', () => {
+
+	// Lazyload fonts in parallel
+	const fontsToLoadlazy = [
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-Regular-400.ttf?hs3yr2', '400' ),
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-Medium-500.ttf?hs3yr2', '500' ),
+		lazyloadFont( 'InterHeading', '/assets/fonts/Inter/heading/InterTight-Medium-500.ttf?hs3yr2', '500' ),
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-Thin-100.ttf?hs3yr2', '100' ),
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-ExtraLight-200.ttf?hs3yr2', '200' ),
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-Light-300.ttf?hs3yr2', '300' ),
+		lazyloadFont( 'Inter', '/assets/fonts/Inter/body/Inter-SemiBold-600.ttf?hs3yr2', '600' ),
+	];
+
+	// Lazyload fonts
+	Promise.all( fontsToLoadlazy )
+	.then();
 });

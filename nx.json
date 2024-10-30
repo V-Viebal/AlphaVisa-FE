@@ -3,6 +3,13 @@
 	"useInferencePlugins": false,
 	"defaultBase": "main",
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"targetDefaults": {
+		"build": {
+			"dependsOn": ["^build"],
+			"inputs": ["production", "^production"],
+			"cache": false
+		}
+	},
 	"namedInputs": {
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
 		"sharedGlobals": [
@@ -13,6 +20,14 @@
 			"default",
 			"!{projectRoot}/.eslintrc.json"
 		]
+	},
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "@nx/workspace/tasks-runners/default",
+			"options": {
+				"cacheableOperations": []
+			}
+		}
 	},
 	"cli": {
 		"cache": {

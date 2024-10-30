@@ -21,7 +21,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/news-1.jpg");')
 							span.date
-								| 10
+								| {{ operationsMap.get( SERVICE_TYPE.OVERSEA )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content
@@ -46,7 +46,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/news-2.jpg");')
 							span.date
-								| 5
+								| {{ operationsMap.get( SERVICE_TYPE.TOURISM )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content
@@ -71,7 +71,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/news-3.jpg");')
 							span.date
-								| 20
+								| {{ operationsMap.get( SERVICE_TYPE.EMPLOYMENT )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content
@@ -96,7 +96,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/about-8.jpg");')
 							span.date
-								| 10
+								| {{ operationsMap.get( SERVICE_TYPE.IMMIGRATION )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content
@@ -121,7 +121,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/about-7.jpg");')
 							span.date
-								| 5
+								| {{ operationsMap.get( SERVICE_TYPE.SPONSORSHIP )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content
@@ -146,7 +146,7 @@ div
 									.image(
 										style='background-image: url("assets/assets1/images/resource/feature-1.jpg");')
 							span.date
-								| 5
+								| {{ operationsMap.get( SERVICE_TYPE.VISIT )?.length | empty }}
 								span.month
 									| {{ "BASE.LABEL.COUNTRY" | translate }}
 						.lower-content

@@ -9,6 +9,7 @@ import {
 import {
 	CUBImageModule,
 	CUBLoadingModule,
+	CUBScrollBarModule,
 	CUBToastModule
 } from '@cub/material';
 
@@ -62,6 +63,7 @@ import { ConfigService } from './modules/common/services';
 		CUBImageModule,
 		CUBLoadingModule,
 		CUBToastModule,
+		CUBScrollBarModule,
 
 		BaseRoutingModule,
 

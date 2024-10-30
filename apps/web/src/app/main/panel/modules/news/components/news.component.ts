@@ -122,12 +122,12 @@ export class NewsComponent implements OnInit, OnDestroy {
 			next: ( answer: boolean ) => {
 				if ( !answer ) return;
 
+				this.popup.close();
+
 				this.descriptionData
 					= undefined;
 				this.news
 					= undefined;
-
-				this.popup.close();
 			},
 		});
 
@@ -157,13 +157,14 @@ export class NewsComponent implements OnInit, OnDestroy {
 					this.newss
 						= _.cloneDeep( this.newss );
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'NEWS.MESSAGE.SUCCESS'
 					);
 
 					this.descriptionData = undefined;
-					this.popup.close();
 					this.titleControl.reset();
 					this.descriptionControl.reset();
 					this.news = undefined;
@@ -197,6 +198,8 @@ export class NewsComponent implements OnInit, OnDestroy {
 
 					this.newss[ index ] = this.news;
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'NEWS.MESSAGE.SUCCESS'
@@ -205,7 +208,6 @@ export class NewsComponent implements OnInit, OnDestroy {
 					this.descriptionData
 						= undefined;
 
-					this.popup.close();
 					this.titleControl.reset();
 					this.descriptionControl.reset();
 					this.news = undefined;

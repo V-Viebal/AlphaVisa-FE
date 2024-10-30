@@ -1,6 +1,9 @@
 import {
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
+	ElementRef,
+	inject,
 	Input,
 	OnInit
 } from '@angular/core';
@@ -27,10 +30,17 @@ implements OnInit {
 
 	@Input() public config: Config;
 
+	private readonly _cdRef: ChangeDetectorRef
+		= inject( ChangeDetectorRef );
+	public readonly elementRef: ElementRef
+		= inject( ElementRef );
+
 	protected readonly OPERATION_TYPE: typeof OperationType
 		= OperationType;
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
+	public markForCheck() {
+		this._cdRef.markForCheck();
+	}
 }

@@ -11,6 +11,7 @@ import {
 } from '@core';
 
 import {
+	CUBDrawerModule,
 	CUBTooltipModule
 } from '@cub/material';
 
@@ -27,9 +28,15 @@ import {
 import {
 	PanelRoutingModule
 } from './panel-routing.module';
-import { OperationModule } from './modules/operation/operation.module';
-import { NewsModule } from './modules/news/news.module';
-import { ClientModule } from './modules/client/client.module';
+import {
+	OperationModule
+} from './modules/operation/operation.module';
+import {
+	NewsModule
+} from './modules/news/news.module';
+import {
+	ClientModule
+} from './modules/client/client.module';
 
 @NgModule({
 	imports: [
@@ -49,6 +56,7 @@ import { ClientModule } from './modules/client/client.module';
 		ClientModule,
 
 		CUBTooltipModule,
+		CUBDrawerModule,
 	],
 	exports: [
 		PanelComponent,

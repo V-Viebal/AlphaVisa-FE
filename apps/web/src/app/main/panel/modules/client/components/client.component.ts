@@ -122,12 +122,12 @@ export class ClientComponent implements OnInit, OnDestroy {
 			next: ( answer: boolean ) => {
 				if ( !answer ) return;
 
+				this.popup.close();
+
 				this.contentData
 					= undefined;
 				this.client
 					= undefined;
-
-				this.popup.close();
 			},
 		});
 
@@ -157,13 +157,14 @@ export class ClientComponent implements OnInit, OnDestroy {
 					this.clients
 						= _.cloneDeep( this.clients );
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'CLIENT.MESSAGE.SUCCESS'
 					);
 
 					this.contentData = undefined;
-					this.popup.close();
 					this.titleControl.reset();
 					this.storyControl.reset();
 					this.client = undefined;
@@ -196,6 +197,8 @@ export class ClientComponent implements OnInit, OnDestroy {
 						);
 					this.clients[ index ] = this.client;
 
+					this.popup.close();
+
 					this._toastService
 					.success(
 						'CLIENT.MESSAGE.SUCCESS'
@@ -204,7 +207,6 @@ export class ClientComponent implements OnInit, OnDestroy {
 					this.contentData
 						= undefined;
 
-					this.popup.close();
 					this.titleControl.reset();
 					this.storyControl.reset();
 					this.client = undefined;

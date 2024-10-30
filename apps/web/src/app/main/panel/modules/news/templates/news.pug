@@ -17,7 +17,7 @@ cub-popup(
 						| Huỷ bỏ
 					button.w-125(
 						cubButton,
-						[disabled]='!news.topic?.length',
+						[disabled]='!news?.topic?.length',
 						(click)='save()')
 						| Lưu
 	cub-popup-content
@@ -60,6 +60,7 @@ p-toolbar(styleClass='mb-4 gap-2')
 		button(
 			cubBasicButton,
 			cubPopupTriggerDisableClose,
+			size='large',
 			[cubPopupTriggerOtherConfig]=`{
 				resizable: true,
 				disableClose: true,
@@ -105,7 +106,7 @@ p-table(
 		tr.cursor(
 			cubBasicButton,
 			cubPopupTriggerDisableClose,
-			iconSize='24px',
+			size='large',
 			[cubPopupTriggerOtherConfig]=`{
 				resizable: true,
 				hasBackdrop: true,
@@ -116,18 +117,18 @@ p-table(
 			(mousedown)='editNews( n )')
 			td
 			td.mr-12(style="max-width: 20rem")
-				.text-truncate
-					| {{ n.topic }}
+				.text-truncate-multi-line([title]='n?.topic | empty')
+					| {{ n?.topic | empty }}
 			td.mr-12(style="max-width: 20rem")
-				.text-truncate
-					| {{ n.description | empty }}
+				.text-truncate-multi-line([title]='n?.description | empty')
+					| {{ n?.description | empty }}
 			td.text-center
 				img.shadow-4([src]="n?.thumbnail?.thumbnailUrl", width='50')
 			td
 				.layout-row.layout-align-center-center.layout-gap-12.flex
 					button(
 						cubBasicButton,
-						iconSize='24px',
+						size='large',
 						[cubPopupTriggerOtherConfig]=`{
 							resizable: true,
 							disableClose: true,
@@ -140,9 +141,9 @@ p-table(
 						i.pi.pi-pencil
 					button.m-2(
 						cubBasicButton,
-						iconSize='24px',
+						size='large',
 						(click)='delete( n.id ); $event?.stopPropagation();')
 						i.pi.pi-trash
 	ng-template(pTemplate='summary')
 		.d-flex.align-items-center.justify-content-between
-			| Tổng cộng {{ newss ? newss.length : 0 }} hàng.
+			| Tổng cộng: {{ newss ? newss.length : 0 }}

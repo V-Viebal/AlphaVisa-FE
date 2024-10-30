@@ -38,8 +38,9 @@ import {
 	changeDetection	: ChangeDetectionStrategy.OnPush,
 })
 export class PanelComponent implements OnInit {
-	protected isLoaded: boolean = false;
 
+	protected isLoaded: boolean;
+	protected isDrawerOpen: boolean = true;
 	protected selectedItem: string;
 	protected directionItems: any[];
 	protected items: any[];

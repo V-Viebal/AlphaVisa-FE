@@ -17,7 +17,7 @@ cub-popup(
 						| Huỷ bỏ
 					button.w-125(
 						cubButton,
-						[disabled]='!client.name.length',
+						[disabled]='!client?.name.length',
 						(click)='save()')
 						| Lưu
 	cub-popup-content
@@ -60,6 +60,7 @@ p-toolbar(styleClass='mb-4 gap-2')
 		button(
 			cubBasicButton,
 			cubPopupTriggerDisableClose,
+			size='large',
 			[cubPopupTriggerOtherConfig]=`{
 				resizable: true,
 				disableClose: true,
@@ -105,7 +106,7 @@ p-table(
 		tr.cursor(
 			cubBasicButton,
 			cubPopupTriggerDisableClose,
-			iconSize='24px',
+			size='large',
 			[cubPopupTriggerOtherConfig]=`{
 				resizable: true,
 				hasBackdrop: true,
@@ -116,18 +117,18 @@ p-table(
 			(mousedown)='editClient( o )')
 			td
 			td.mr-12(style="max-width: 20rem")
-				.text-truncate
-					| {{ o.name }}
+				.text-truncate-multi-line([title]='o?.name | empty')
+					| {{ o?.name }}
 			td.mr-12(style="max-width: 20rem")
-				.text-truncate
-					| {{ o.story | empty }}
+				.text-truncate-multi-line([title]='o?.story | empty')
+					| {{ o?.story | empty }}
 			td.text-center
 				img.shadow-4([src]="o?.thumbnail?.thumbnailUrl", width='50')
 			td
 				.layout-row.layout-align-center-center.layout-gap-12.flex
 					button(
 						cubBasicButton,
-						iconSize='24px',
+						size='large',
 						[cubPopupTriggerOtherConfig]=`{
 							resizable: true,
 							disableClose: true,
@@ -140,9 +141,9 @@ p-table(
 						i.pi.pi-pencil
 					button.m-2(
 						cubBasicButton,
-						iconSize='24px',
+						size='large',
 						(click)='delete( o.id ); $event?.stopPropagation();')
 						i.pi.pi-trash
 	ng-template(pTemplate='summary')
 		.d-flex.align-items-center.justify-content-between
-			| Tổng cộng {{ clients ? clients.length : 0 }} hàng.
+			| Tổng cộng: {{ clients ? clients.length : 0 }}

@@ -23,6 +23,8 @@ export class CUBDrawerContainerComponent {
 
 	@HostBinding( 'style.--drawer-width' )
 	get styleWidth(): string { return this.drawerComp.width; }
+	@HostBinding( 'style.--drawer-min-width' )
+	get styleMinWidth(): string { return this.drawerComp.minimumWidth; }
 
 	@HostBinding( 'class.cub-drawer-container--stretch' )
 	get classStretch(): boolean { return this.stretch; }

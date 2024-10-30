@@ -31,8 +31,6 @@ export class AuthGuard {
 	 * @return {boolean}
 	 */
 	public canActivateChild(): Observable<boolean> {
-		console.log(this._authService.isAccountAccessed, this._authService.isAccessTokenExpired);
-
 		if ( this._authService.isAccountAccessed ) {
 
 			if ( !this._authService.isAccessTokenExpired ) return of( true );

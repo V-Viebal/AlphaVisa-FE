@@ -6,6 +6,10 @@ import {
 	inject,
 	AfterViewInit
 } from '@angular/core';
+import {
+	FormBuilder,
+	FormGroup
+} from '@angular/forms';
 import { finalize } from 'rxjs';
 import Swiper from 'swiper';
 import {
@@ -18,6 +22,8 @@ import {
 	Unsubscriber,
 	untilCmpDestroyed
 } from '@core';
+
+import Swal from 'sweetalert2';
 
 import {
 	ClientService
@@ -32,12 +38,8 @@ import {
 	BaseService
 } from '@main/base/services';
 import {
-	CUBToastService
-} from '@cub/material';
-import {
 	Email
 } from '@main/base/interfaces';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 // Import necessary Swiper modules
 Swiper.use([ Navigation, Pagination, Autoplay ]);
@@ -68,8 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		= inject( BaseService );
 	private readonly _fb: FormBuilder
 		= inject( FormBuilder );
-	private readonly _toastService: CUBToastService
-		= inject( CUBToastService );
 
 	constructor() {
 		this.emailForm
@@ -93,6 +93,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 				delay: 5000,
 				disableOnInteraction: false,
 			},
+			navigation: {
+				nextEl: '.swiper-button-next-unique',
+				prevEl: '.swiper-button-prev-unique'
+			}
 		});
 
 		if ( this.IS_MOBILE ) {
@@ -122,7 +126,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			});
 		} else {
 			new Swiper('.swiper.gallery-carousel', {
-				slidesPerView: 3,
+				slidesPerView: 4,
 				loop: true,
 				autoplay: {
 					delay: 5000,
@@ -161,10 +165,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
 				email: this.emailForm.controls.email.value,
 			};
 
-		this._toastService
-		.success(
-			'BASE.MESSAGE.SUCCESS'
-		);
+		Swal.fire({
+			title: 'Gửi thành công!',
+			text: 'Chúng tôi sẽ nhanh chóng liên hệ với bạn.',
+			icon: 'success',
+			confirmButtonText: 'Cảm ơn bạn',
+			backdrop: false,
+			timer: 2500,
+		});
+		this.emailForm.markAsPristine();
 
 		this._baseService.sendEmail( this.email )
 		.pipe(
@@ -175,10 +184,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		)
 		.subscribe({
 			error: () => {
-				this._toastService
-				.danger(
-					'BASE.MESSAGE.FAIL'
-				);
+				Swal.fire({
+					title: 'Gửi thất bại!',
+					text: 'Làm phiền bạn kiểm tra internet và gửi lại sau.',
+					icon: 'error',
+					confirmButtonText: 'Cảm ơn bạn',
+					backdrop: false,
+					timer: 2500,
+				});
 			},
 		});
 	}

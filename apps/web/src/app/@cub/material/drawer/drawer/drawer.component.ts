@@ -48,6 +48,7 @@ export class CUBDrawerComponent implements OnChanges {
 	@ContentChild( CUBDrawerLazyDirective ) public lazyContent: CUBDrawerLazyDirective;
 
 	@Input() @CoerceCssPixel() public width: string;
+	@Input() @CoerceCssPixel() public minimumWidth: string;
 	@Input() @CoerceCssPixel() public minWidth: string;
 	@Input() @CoerceCssPixel() public maxWidth: string;
 	@Input() @CoerceBoolean() public opened: boolean;
@@ -105,8 +106,10 @@ export class CUBDrawerComponent implements OnChanges {
 	/**
 	 * @return {void}
 	 */
-	public open() {
-		this.openedChange.emit( this.opened = true );
+	public toggle() {
+		this.opened = !this.opened;
+
+		this.openedChange.emit( this.opened );
 
 		this._render();
 	}

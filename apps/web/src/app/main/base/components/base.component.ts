@@ -11,15 +11,17 @@ import {
 import { Event, NavigationEnd, Router } from '@angular/router';
 
 import {
+	ScrollEvent,
 	Unsubscriber,
 	untilCmpDestroyed
 } from '@core';
-import { CUBToastService, CUBToastType } from '@cub/material';
+import { CUBScrollBarComponent, CUBToastService, CUBToastType } from '@cub/material';
 import { NavigationBarComponent } from '@main/common/navigation-bar/components';
 import { filter, finalize } from 'rxjs';
 import { BaseService } from '../services';
 import { Config } from '../modules/common/interfaces';
 import { ConfigService } from '../modules/common/services';
+import { FooterComponent } from '@main/common/footer/components';
 
 @Unsubscriber()
 @Component({
@@ -33,8 +35,12 @@ export class BaseComponent implements OnInit, AfterViewInit {
 
 	@ViewChild( NavigationBarComponent )
 	public header: NavigationBarComponent;
+	@ViewChild( FooterComponent )
+	public footer: FooterComponent;
 	@ViewChild( 'container' )
 	public container: ViewContainerRef;
+	@ViewChild( 'scrollBar' )
+	public scrollBar: CUBScrollBarComponent;
 
 	protected config: Config;
 	protected lastScrollY: number;
@@ -65,6 +71,10 @@ export class BaseComponent implements OnInit, AfterViewInit {
 			untilCmpDestroyed( this )
 		)
 		.subscribe( () => {
+			if ( this.header?.isMobileMenuVisible ) {
+				this.header.toggleMobileMenu();
+			}
+
 			setTimeout(() => {
 				this.scrollToTop();
 			}, 200);
@@ -77,15 +87,23 @@ export class BaseComponent implements OnInit, AfterViewInit {
 						const rect: DOMRectReadOnly
 							= entry.boundingClientRect;
 
-						if (
-							!entry.isIntersecting
-							&& rect.top < 90
-						) {
-							this.showScrollTop = true;
-							this.header.isSticky = true;
-						} else if ( entry.isIntersecting ) {
-							this.showScrollTop = false;
-							this.header.isSticky = false;
+						if ( entry.target === this.header.elementRef.nativeElement ) {
+							if (
+								!entry.isIntersecting
+								&& rect.top < 90
+							) {
+								this.showScrollTop = true;
+								this.header.isSticky = true;
+							} else if ( entry.isIntersecting ) {
+								this.showScrollTop = false;
+								this.header.isSticky = false;
+							}
+						}
+
+						if ( entry.target === this.footer.elementRef.nativeElement ) {
+							console.log(rect);
+
+							this._baseService.footer$.next( entry );
 						}
 
 						this._cdRef.markForCheck();
@@ -95,38 +113,29 @@ export class BaseComponent implements OnInit, AfterViewInit {
 			);
 
 		observer.observe( this.header.elementRef.nativeElement );
+		observer.observe( this.footer.elementRef.nativeElement );
+
+		this.scrollBar.scrolling$
+		.pipe( untilCmpDestroyed( this ) )
+		.subscribe({
+			next: ( event: ScrollEvent ) => {
+				this._baseService.scrollEvent$.next( event as any );
+			}
+		})
 	}
 
-	// protected onWindowScroll(): void {
-	// 	const currentScrollY: number = window.scrollY;
-	// 	const isScrollingDown: boolean = currentScrollY > this.lastScrollY;
-
-	// 	// Check scroll direction and position to manage sticky header
-	// 	if (isScrollingDown && currentScrollY > 50) {
-	// 		// User is scrolling down and past the threshold
-	// 		this.header.isSticky = true;
-	// 		this.showScrollTop = true;
-	// 	} else if (!isScrollingDown && currentScrollY < 50) {
-	// 		// User is scrolling up and within the threshold
-	// 		this.header.isSticky = false;
-	// 		this.showScrollTop = false;
-	// 	}
-
-	// 	// Update the last scroll position
-	// 	this.lastScrollY = currentScrollY;
-
-	// 	// Trigger change detection to update the view
-	// 	this._cdRef.markForCheck();
-	// }
-
 	protected scrollToTop(): void {
-		document.getElementById('__nuxt')
-		.scrollIntoView({ behavior: 'smooth' });
+		this.scrollBar.nativeElement.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
 	}
 
 	protected scrollToBottom(): void {
-		document.getElementById('bottom')
-		.scrollIntoView({ behavior: 'smooth' });
+		this.scrollBar.nativeElement.scrollTo({
+			top: this.scrollBar.nativeElement.scrollHeight,
+			behavior: 'smooth'
+		});
 	}
 
 	private _initSubscription() {
@@ -155,8 +164,8 @@ export class BaseComponent implements OnInit, AfterViewInit {
 					case CUBToastType.Warning:
 						break;
 				}
-			}
-		})
+			},
+		});
 	}
 	/**
 	 * @return {void}

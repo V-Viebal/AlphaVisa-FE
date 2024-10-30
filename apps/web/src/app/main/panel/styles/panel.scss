@@ -15,9 +15,6 @@
 		flex-shrink: 0;
 		align-items: space-between;
 		justify-content: center;
-		width: 64px;
-		min-width: 64px;
-		max-width: 64px;
 		height: 100%;
 		min-height: 0;
 		max-height: 100%;
@@ -26,16 +23,11 @@
 		.item {
 			width: 100%;
 			display: flex;
-			justify-content: center;
+			align-items: center;
 			padding: 20px;
 			border-radius: 2px;
 			cursor: pointer;
-
-			i {
-				transition: all 0.4s ease;
-				font-size: 24px;
-				color: $color-icon-secondary;
-			}
+			gap: 4px;
 
 			&:hover {
 				background-color: $color-material-hover;
@@ -45,6 +37,19 @@
 					transform: scale(1.2);
 				}
 			}
+
+			i {
+				transition: all 0.4s ease;
+				font-size: 24px;
+				color: $color-icon-secondary;
+			}
+
+			.label {
+				display: flex;
+				justify-content: center;
+				flex: 1 1 0%;
+			}
+
 		}
 
 		.item--actived {
@@ -61,6 +66,21 @@
 
 			i {
 				color: $color-icon-tertiary;
+			}
+		}
+	}
+
+	::ng-deep {
+		.cub-drawer-container {
+			.cub-drawer__content {
+				padding: 0 !important;
+			}
+
+			.cub-drawer-content {
+				padding: {
+					left: 0 !important;
+					top: 0;
+				}
 			}
 		}
 	}

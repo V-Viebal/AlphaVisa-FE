@@ -7,4 +7,14 @@
 	min-width: 0;
 	max-width: 100%;
 	background-color: $color-white;
+
+	.icon-zalo {
+		height: 16px;
+		width: 16px;
+		background-image: url(/assets/assets1/images/icons/icon-zalo-black.png);
+		background-color: #7B87A1;
+		background-size: contain;
+		border-radius: 4px;
+		margin-bottom: -2px;
+	}
 }

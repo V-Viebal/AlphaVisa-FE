@@ -1,17 +1,15 @@
 mixin client(client)
 	.service-block-two.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
-		.inner-box
+		a.inner-box([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
 			.image-box
 				figure
-					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
-						.image-client(
-							[style]=`"background-image: url(" + ${client}?.thumbnail?.url + ");"`)
+					.image-client(
+						[style]=`"background-image: url(" + ${client}?.thumbnail?.url + ");"`)
 				i.icon.fa.fa-graduation-cap
 			.lower-content
-				h6.title.text-truncate-multi-line-3.mah-86
-					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
-						| {{ #{client}.name | empty }}
-				.text-truncate-multi-line.text
+				h5.title.text-truncate-multi-line.mah-56([title]=`${client}.name | empty`)
+					| {{ #{client}.name | empty }}
+				.text-truncate-multi-line.text([title]=`${client}?.story | empty`)
 					| {{ #{client}?.story | empty }}
 
 section.services-section-two.pull-down.mb-40

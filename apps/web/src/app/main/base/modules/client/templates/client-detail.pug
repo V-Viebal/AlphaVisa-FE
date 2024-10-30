@@ -3,7 +3,8 @@ mixin item(item)
 		.sidebar__post-image
 			img([src]=`${item}?.thumbnail?.url` [alt]=`${item}?.thumbnail?.fileName`)
 		.sidebar__post-content
-			.font-size-16.text-truncate-multi-line.font-weight-600.maw-250
+			.font-size-16.text-truncate-multi-line.font-weight-600(
+				[title]=`${item}?.name | empty`)
 				| {{ #{item}?.name | empty }}
 			small
 				| {{ #{item}?.createdAt | date : 'dd/MM/yyyy' }}
@@ -53,60 +54,61 @@ div
 							.layout-row.layout-align-center-start
 								cub-loading
 
-				.col-xl-4.col-lg-5
-					.sidebar
-						.sidebar__single.sidebar__post
-							h3.sidebar__title
-								| {{ "BASE.LABEL.LATEST_NEWS" | translate }}
-							ul.sidebar__post-list.list-unstyled
-								+for('item of clients; let index = $index; track item')
-									+if('index < 6 && item?.id !== client?.id')
-										+item('item')
-					.form-column.mt-20
-						.inner-column
-							.form-outer
-								.contact-form.team-contact-form.wow.fadeInLeft.p-20
-									.sec-title.mb-20
-										h2.pv-10.section-title__title.font-size-20
-											| {{ "BASE.LABEL.PLEASE_CONTACT_US" | translate }}
-									form#contact-form(
-										[formGroup]='emailForm',
-										(submit)='sendEmail()')
-										.form-group
-											input(
-												required,
-												cubFormFieldInput,
-												type='text',
-												name='full_name',
-												formControlName='fullName',
-												[placeholder]='"BASE.PLACEHOLDER.INPUT_NAME" | translate')
-										.form-group
-											input(
-												required,
-												cubFormFieldInput,
-												type='number',
-												name='phone_number',
-												formControlName='phone',
-												[placeholder]='"BASE.PLACEHOLDER.INPUT_PHONENUMBER" | translate')
-										.form-group
-											input(
-												required,
-												cubFormFieldInput,
-												type='text',
-												name='Email',
-												formControlName='email',
-												[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate')
-										.form-group
-											textarea(
-												cubFormFieldInput,
-												type='text',
-												name='message',
-												formControlName='description',
-												[placeholder]='"BASE.PLACEHOLDER.INPUT_MESSAGE" | translate')
-										.form-group
-											button.theme-btn.btn-style-three(
-												type='submit',
-												name='submit-form',
-												[disabled]='emailForm?.invalid')
-												span.btn-title
-													| {{ "BASE.LABEL.SEND_MESSAGE" | translate }}
+				.layout-row.col-xl-4.col-lg-5
+					.float.flex(#float)
+						.sidebar
+							.sidebar__single.sidebar__post
+								h3.sidebar__title
+									| {{ "BASE.LABEL.LATEST_NEWS" | translate }}
+								ul.sidebar__post-list.list-unstyled
+									+for('item of clients; let index = $index; track item')
+										+if('index < 3 && item?.id !== client?.id')
+											+item('item')
+						.form-column.mt-20
+							.inner-column
+								.form-outer
+									.contact-form.team-contact-form.wow.fadeInLeft.p-20
+										.sec-title.mb-20
+											h2.pv-10.section-title__title.font-size-20
+												| {{ "BASE.LABEL.PLEASE_CONTACT_US" | translate }}
+										form#contact-form(
+											[formGroup]='emailForm',
+											(submit)='sendEmail()')
+											.form-group
+												input(
+													required,
+													cubFormFieldInput,
+													type='text',
+													name='full_name',
+													formControlName='fullName',
+													[placeholder]='"BASE.PLACEHOLDER.INPUT_NAME" | translate')
+											.form-group
+												input(
+													required,
+													cubFormFieldInput,
+													type='number',
+													name='phone_number',
+													formControlName='phone',
+													[placeholder]='"BASE.PLACEHOLDER.INPUT_PHONENUMBER" | translate')
+											.form-group
+												input(
+													required,
+													cubFormFieldInput,
+													type='text',
+													name='Email',
+													formControlName='email',
+													[placeholder]='"BASE.PLACEHOLDER.INPUT_EMAIL" | translate')
+											.form-group
+												textarea(
+													cubFormFieldInput,
+													type='text',
+													name='message',
+													formControlName='description',
+													[placeholder]='"BASE.PLACEHOLDER.INPUT_MESSAGE" | translate')
+											.form-group
+												button.theme-btn.btn-style-three(
+													type='submit',
+													name='submit-form',
+													[disabled]='emailForm?.invalid || emailForm?.pristine')
+													span.btn-title
+														| {{ "BASE.LABEL.SEND_MESSAGE" | translate }}

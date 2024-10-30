@@ -10,6 +10,90 @@
 }
 
 ::ng-deep {
+	.swiper-button-next-unique,
+	.swiper-button-prev-unique {
+		position: absolute;
+		top: 50%;
+		width: 40px;
+		height: 40px;
+		margin-top: -20px; /* To center the buttons vertically */
+		z-index: 10;
+		cursor: pointer;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.3s ease;
+	}
+
+	.swiper-button-next-unique:hover,
+	.swiper-button-prev-unique:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+
+	.swiper-button-next-unique::after,
+	.swiper-button-prev-unique::after {
+		content: '';
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-style: solid;
+		border-width: 2px 2px 0 0;
+		transform: rotate(45deg);
+		border-color: white;
+	}
+
+	.swiper-button-next-unique {
+		right: 10px;
+	}
+
+	.swiper-button-next-unique::after {
+		transform: rotate(45deg); /* Arrow pointing right */
+		margin-right: 5px;
+	}
+
+	.swiper-button-prev-unique {
+		left: 10px;
+	}
+
+	.swiper-button-prev-unique::after {
+		transform: rotate(225deg); /* Arrow pointing left */
+		margin-left: 5px;
+	}
+
+	@media (max-width: 768px) {
+		.swiper-button-next-unique,
+		.swiper-button-prev-unique {
+			display: none; /* Hide navigation buttons on mobile */
+		}
+	}
+
+	.float {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		transition: top 0.3s ease-in-out;
+		top: 0;
+		width: 380px;
+	}
+
+	.sticky {
+		position: fixed;
+		top: 70px;
+	}
+	.sticky_bottom {
+		position: relative !important;
+		justify-content: flex-end;
+		display: flex;
+		top: unset;
+	}
+	.sticky_disable {
+		position: relative !important;
+		top: unset !important;
+		justify-content: unset !important;
+	}
+
 	.image-client {
 		background-size: cover;
 		display: block;
@@ -44,10 +128,10 @@
 		margin-left: -3px;
 	}
 	.icon-facebook {
-		height: 50px;
-		width: 50px;
-		background-image: url('/assets/assets1/images/icons/icon-facebook-full.png');
-		margin-left: -5px;
+		height: 45px;
+		width: 45px;
+		background-image: url('/assets/assets1/images/icons/icon-facebook-full.svg');
+		margin-left: -3px;
 	}
 
 	.icon-phone-social {
@@ -72,6 +156,13 @@
 
 	.codex-editor__redactor {
 		padding-bottom: 32px !important;
+	}
+	.ce-block__content {
+		max-width: 940px;
+		margin: 0;
+	}
+	.codex-editor.codex-editor--empty {
+		margin: 0;
 	}
 
 	* {
@@ -888,10 +979,6 @@
 		font-size: 1em;
 		font-weight: 700;
 		padding: 0;
-	}
-
-	figure {
-		margin: 0 0 1rem;
 	}
 
 	table {
@@ -23409,6 +23496,7 @@
 		transition: all 0.3s ease;
 		width: 40px;
 		align-self: center;
+		margin-top: 4px;
 	}
 
 	.icon-social {
@@ -25612,7 +25700,7 @@
 	}
 
 	.mobile-menu .menu-box {
-		background: var(--bg-theme-color1);
+		backdrop-filter: blur(11.5px);
 		border-radius: 0;
 		display: flex;
 		flex-direction: column;
@@ -25690,7 +25778,7 @@
 		color: #fff;
 		display: block;
 		font-size: 16px;
-		font-weight: 400;
+		font-weight: 500;
 		line-height: 24px;
 		padding: 10px 20px;
 		position: relative;
@@ -28345,6 +28433,14 @@
 	.training-section-three {
 		padding: 120px 0;
 		position: relative;
+	}
+
+	.countries-carousel {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
 	}
 
 	.training-section-three .carousel-outer {

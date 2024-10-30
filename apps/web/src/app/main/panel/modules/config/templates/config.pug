@@ -88,5 +88,14 @@ p-toolbar(styleClass='mb-4 gap-2')
 					placeholder='Nhập văn bản...',
 					formControlName='socialLink',
 					[valueControl]='config?.socialLink')
+			cub-form-field.full-width(
+				size='xlarge',
+				label='Đường dẫn zalo')
+				input(
+					cubFormFieldInput,
+					autoFocusOn,
+					placeholder='Nhập văn bản...',
+					formControlName='zaloLink',
+					[valueControl]='config?.zaloLink')
 	+else
 		cub-loading

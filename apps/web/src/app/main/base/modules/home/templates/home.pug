@@ -30,10 +30,10 @@ mixin client(client, index)
 							[style]=`"background-image: url(" + ${client}?.thumbnail?.url + ");"`)
 				i.icon.fa.fa-graduation-cap
 			.lower-content
-				h6.title.text-truncate-multi-line-3.mah-86
+				h6.title.text-truncate-multi-line.mah-56([title]=`${client}?.name`)
 					a([routerLink]=`[ "/client-success/detail", ${client}.id ]`)
 						| {{ #{client}?.name | empty }}
-				.text-truncate-multi-line.text
+				.text-truncate-multi-line.text([title]=`${client}?.story`)
 					| {{ #{client}?.story | empty }}
 
 div
@@ -46,6 +46,8 @@ div
 				.swiper-slide.slide-item(data-swiper-slide-index='1')
 					.bg-image(style='background-image: url(assets/assets1/images/main-slider/3.jpg)')
 					+auto-container
+		.swiper-button-next-unique
+		.swiper-button-prev-unique
 	section.services-section
 		.auto-container
 			.row
@@ -62,78 +64,68 @@ div
 						.text
 							| {{ "BASE.LABEL.SERVICE_DESCRIPTION" | translate }}
 				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
-					.inner-box
+					a.inner-box([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
 						.image-box
 							figure.image
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
-									img(src='assets/assets1/images/resource/service-1.jpg' alt='')
+								img(src='assets/assets1/images/resource/service-1.jpg' alt='')
 							i.icon.fa.fa-graduation-cap
 							h6.title
 								| {{ "BASE.LABEL.OVERSEA" | translate }}
 						.content-box
 							h6.title
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.OVERSEA ]')
-									| {{ "BASE.LABEL.OVERSEA" | translate }}
+								| {{ "BASE.LABEL.OVERSEA" | translate }}
 							.text
 								| {{ "BASE.LABEL.OVERSEA_DESCRIPTION" | translate }}
 				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='200ms')
-					.inner-box
+					a.inner-box([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
 						.image-box
 							figure.image
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
-									img(src='assets/assets1/images/resource/service-2.jpg' alt='')
+								img(src='assets/assets1/images/resource/service-2.jpg' alt='')
 							i.icon.fa.fa-briefcase
 							h6.title
 								| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
 						.content-box
 							h6.title
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.SPONSORSHIP ]')
-									| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
+								| {{ "BASE.LABEL.SPONSORSHIP" | translate }}
 							.text
 								| {{ "BASE.LABEL.SPONSORSHIP_DESCRIPTION" | translate }}
 				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp
-					.inner-box
+					a.inner-box([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
 						.image-box
 							figure.image
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
-									img(src='assets/assets1/images/resource/service-3.jpg' alt='')
+								img(src='assets/assets1/images/resource/service-3.jpg' alt='')
 							i.icon.fa.fa-user-graduate
 							h6.title
 								| {{ "BASE.LABEL.TOURISM" | translate }}
 						.content-box
 							h6.title
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.TOURISM ]')
-									| {{ "BASE.LABEL.TOURISM" | translate }}
+								| {{ "BASE.LABEL.TOURISM" | translate }}
 							.text
 								| {{ "BASE.LABEL.TOURISM_DESCRIPTION" | translate }}
 				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='200ms')
-					.inner-box
+					a.inner-box([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
 						.image-box
 							figure.image
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
-									img(src='assets/assets1/images/resource/service-4.jpg' alt='')
+								img(src='assets/assets1/images/resource/service-4.jpg' alt='')
 							i.icon.fa.fa-camera
 							h6.title
 								| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
 						.content-box
 							h6.title
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.EMPLOYMENT ]')
-									| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
+								| {{ "BASE.LABEL.EMPLOYMENT" | translate }}
 							.text
 								| {{ "BASE.LABEL.EMPLOYMENT_DESCRIPTION" | translate }}
 				.service-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='400ms')
-					.inner-box
+					a.inner-box([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
 						.image-box
 							figure.image
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
-									img(src='assets/assets1/images/resource/service-5.jpg' alt='')
+								img(src='assets/assets1/images/resource/service-5.jpg' alt='')
 							i.icon.fa.fa-home
 							h6.title
 								| {{ "BASE.LABEL.IMMIGRATION" | translate }}
 						.content-box
 							h6.title
-								a([routerLink]='[ "/service/detail", OPERATION_TYPE.IMMIGRATION ]')
-									| {{ "BASE.LABEL.IMMIGRATION" | translate }}
+								| {{ "BASE.LABEL.IMMIGRATION" | translate }}
 							.text
 								| {{ "BASE.LABEL.IMMIGRATION_DESCRIPTION" | translate }}
 				.cta-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp(data-wow-delay='600ms')
@@ -244,62 +236,61 @@ div
 					span.color3
 						| {{ "BASE.LABEL.COUNTRIES" | translate }}
 			.carousel-outer
-				.swiper.countries-carousel.owl-carousel.owl-theme
-					.swiper-wrapper
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='0')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-1.png' alt='Australia')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.AMERICA" | translate }}
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='1')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-2.png' alt='Germany')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.CANADA" | translate }}
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='2')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-3.png' alt='Brazil')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.AUSTRALIA" | translate }}
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='4')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-5.png' alt='England')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.ENGLAND" | translate }}
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='3')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-4.png' alt='Russia')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.NEW_ZEALAND" | translate }}
-						.swiper-slide(
-							[ngStyle]='{"width": "170px", "margin-right": "30px"}',
-							data-swiper-slide-index='5')
-							.country-block
-								.inner-box
-									.flag
-										img(src='assets/assets1/images/resource/flag-6.png' alt='India')
-									a.theme-btn(href="javascript:void(0)")
-										| {{ "BASE.LABEL.SINGAPORE" | translate }}
+				.countries-carousel.owl-carousel.owl-theme
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='0')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-1.png' alt='Australia')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.AMERICA" | translate }}
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='1')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-2.png' alt='Germany')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.CANADA" | translate }}
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='2')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-3.png' alt='Brazil')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.AUSTRALIA" | translate }}
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='4')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-4.png' alt='England')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.ENGLAND" | translate }}
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='3')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-5.png' alt='New Zealand')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.NEW_ZEALAND" | translate }}
+					.country(
+						[ngStyle]='{"width": "170px"}',
+						data-swiper-slide-index='5')
+						.country-block
+							.inner-box
+								.flag
+									img(src='assets/assets1/images/resource/flag-6.png' alt='India')
+								a.theme-btn(href="javascript:void(0)")
+									| {{ "BASE.LABEL.SINGAPORE" | translate }}
 	section.services-section-two.pull-down.mb-40
 		.bg(style='background-image: url(assets/assets1/images/background/2.jpg)')
 		.auto-container
@@ -391,6 +382,6 @@ div
 											button.theme-btn.btn-style-three(
 												type='submit',
 												name='submit-form',
-												[disabled]='emailForm?.invalid')
+												[disabled]='emailForm?.invalid || emailForm?.pristine')
 												span.btn-title
 													| {{ "BASE.LABEL.SEND_MESSAGE" | translate }}

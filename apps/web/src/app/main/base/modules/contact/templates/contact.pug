@@ -70,7 +70,7 @@ div
 							button.theme-btn.btn-style-one.me-1(
 								type='submit',
 								data-loading-text='Please wait...'
-								[disabled]='emailForm?.invalid')
+								[disabled]='emailForm?.invalid || emailForm?.pristine')
 								span.btn-title
 									| {{ "BASE.LABEL.SEND_EMAIL" | translate }}
 							button.theme-btn.btn-style-one.bg-theme-color5(type='reset')

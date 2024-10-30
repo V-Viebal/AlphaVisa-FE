@@ -2,6 +2,9 @@ import {
 	Injectable,
 	inject
 } from '@angular/core';
+import {
+	ScrollEvent
+} from '@core';
 import _ from 'lodash';
 
 import {
@@ -15,6 +18,10 @@ export class BaseService {
 
 	public readonly toast$: Subject<any>
 		= new Subject<any>();
+	public readonly footer$: Subject<IntersectionObserverEntry>
+		= new Subject<IntersectionObserverEntry>();
+	public readonly scrollEvent$: Subject<ScrollEvent>
+		= new Subject<ScrollEvent>();
 
 	private readonly _endPoint: string
 		= '/CustomerRegistrations';

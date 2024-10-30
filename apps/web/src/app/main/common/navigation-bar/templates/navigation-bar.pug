@@ -67,8 +67,7 @@ header.main-header.header-style-two
 					li
 						a(
 							target='_blank',
-							href='zalo://open')
-							//- [href]='config?.socialLink | empty')
+							[href]='config?.zaloLink | empty')
 							.icon-social.icon-zalo(alt='')
 	.header-lower
 		.main-box
@@ -137,14 +136,14 @@ header.main-header.header-style-two
 						span.title
 							| {{ "BASE.LABEL.CALL_ANYTIME" | translate }}
 						.text
-							a([href]='"/tel:" + config?.phone | empty') {{ config?.phone | phoneFormat | empty }}
+							a([href]='"tel:" + config?.phone | empty' rel='noopener noreferrer') {{ config?.phone | phoneFormat | empty }}
 				li
 					.contact-info-box
 						span.icon.lnr-icon-envelope1
 						span.title
 							| {{ "BASE.LABEL.SEND_EMAIL" | translate }}
 						.text
-							a([href]='"/mailto:" + config?.email | empty') {{ config?.email | empty }}
+							a([href]='"mailto:" + config?.email | empty' rel='noopener noreferrer') {{ config?.email | empty }}
 				li
 					.contact-info-box
 						span.icon.lnr-icon-clock

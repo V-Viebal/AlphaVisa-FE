@@ -86,12 +86,23 @@ footer.main-footer
 											target="_blank")
 											| {{ config?.address | empty }}
 								li
+									i.icon.fa.fa-phone-square.mr-10
+									span.title
+										a.text([href]='"tel:" + config?.phone | empty' rel='noopener noreferrer') {{ config?.phone | phoneFormat | empty }}
+								li
 									i.icon.pi.pi-facebook.mr-10
 									span.title
 										a.text(
 											[href]="config?.socialLink | empty",
 											target="_blank")
-											| {{ "BASE.LABEL.VISIT_FANPAGE" | translate }}
+											| {{ "BASE.LABEL.OVERSEA_ALPHA" | translate }}
+								li
+									.icon.icon-zalo.mr-10
+									span.title
+										a.text(
+											[href]="config?.zaloLink | empty",
+											target="_blank")
+											| {{ "BASE.LABEL.OVERSEA_ALPHA" | translate }}
 				//- .footer-column.col-xl-3.col-lg-12.col-md-6
 				//- 	.footer-widget
 				//- 		h6.widget-title
