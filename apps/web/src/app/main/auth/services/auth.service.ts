@@ -12,6 +12,7 @@ import {
 	Subject
 } from 'rxjs';
 import {
+	finalize,
 	tap
 } from 'rxjs/operators';
 import moment from 'moment-timezone';
@@ -64,11 +65,13 @@ export class AuthService {
 		CONSTANT.PATH.SIGN_OUT,
 	];
 
+	public isRefreshing: boolean;
+
 	private readonly _apiService: AccountApiService
 		= inject( AccountApiService );
 	private readonly _endPoint: string = '/Users';
 
-	private _bufferTime: number = 30;
+	private _bufferTime: number = 3590;
 	private _rotateTimeout: NodeJS.Timeout;
 	private _storedAuth: IAuth;
 
@@ -77,10 +80,10 @@ export class AuthService {
 	}
 
 	get isAccessTokenExpired(): boolean {
-		const currentTime: number
-			= moment().unix();
-
-		return currentTime > this.getStoredAuth()?.expiresAt - this._bufferTime;
+		return moment().utc().add( this._bufferTime, 'seconds' )
+		.isAfter(
+			moment.unix( this.getStoredAuth().expiresAt ).utc()
+		);
 	}
 
 	public $isExistAccount: Subject<boolean>
@@ -137,13 +140,14 @@ export class AuthService {
 			tap( ( result: IAccountToken ) => {
 				this.setStoredAuth({
 					accessToken: result.accessToken,
-					expiresAt: result.expiresIn + moment().unix(),
+					expiresAt: moment().utc().add( result.expiresIn, 'seconds' ).unix(),
 					refreshToken: result.refreshToken,
 					tokenType: result.tokenType,
 					accountEmail: this._storedAuth.accountEmail,
 				});
 
-				this._scheduleRotateToken( result.expiresIn + moment().unix() );
+				this._scheduleRotateToken(
+					moment().utc().add( result.expiresIn, 'seconds' ).unix() );
 			})
 		);
 	}
@@ -187,13 +191,13 @@ export class AuthService {
 
 			this.setStoredAuth({
 				accessToken: result.accessToken,
-				expiresAt: result.expiresIn + moment().unix(),
+				expiresAt: moment().utc().add( result.expiresIn, 'seconds' ).unix(),
 				refreshToken: result.refreshToken,
 				tokenType: result.tokenType,
 				accountEmail: account.email,
 			});
 
-			this._scheduleRotateToken( result.expiresIn + moment().unix() );
+			this._scheduleRotateToken( moment().utc().add( result.expiresIn, 'seconds' ).unix() );
 		} ) );
 	}
 
@@ -370,26 +374,36 @@ export class AuthService {
 	 * @return {void}
 	 */
 	private _scheduleRotateToken( expiresAt: number ) {
-		const currentTime: number
-			= moment().unix();
-		const timeout: number
-			= expiresAt - currentTime - this._bufferTime;
+		const currentTimeWithBuffer: moment.Moment
+			= moment().utc().add( this._bufferTime, 'seconds' );
+		const tokenExpireMoment: moment.Moment
+			= moment.unix( expiresAt ).utc();
+		const remainingSeconds: number
+			= tokenExpireMoment.diff( currentTimeWithBuffer, 'seconds' );
 
-		if ( this._rotateTimeout ) {
-			clearTimeout( this._rotateTimeout );
-		}
+		if ( remainingSeconds ) {
+			if ( this._rotateTimeout ) {
+				clearTimeout( this._rotateTimeout );
+			}
 
-		if ( !timeout ) return;
+			this._rotateTimeout
+				= setTimeout(
+					() => {
+						this.isRefreshing = true;
 
-		this._rotateTimeout
-			= setTimeout(
-				() => {
 					this.rotateAccessToken()
-					.pipe( untilCmpDestroyed( this ) )
+					.pipe(
+						finalize(() => {
+							this.isRefreshing = false;
+						}),
+						untilCmpDestroyed( this )
+					)
 					.subscribe();
 				},
-				timeout * 1000
+				remainingSeconds * 1000
 			);
+
+		}
 
 	}
 }

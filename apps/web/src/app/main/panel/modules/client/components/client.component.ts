@@ -195,7 +195,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 							( client: Client ) =>
 								client.id === this.client.id
 						);
-					this.clients[ index ] = this.client;
+					this.clients[ index ] = _.cloneDeep( this.client );
 
 					this.popup.close();
 

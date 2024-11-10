@@ -81,7 +81,7 @@ p-table(
 	currentPageReportTemplate='Hiển thị hàng từ {first} tới {last} của tổng {totalRecords} hàng',
 	[resizableColumns]='true',
 	[value]='newss',
-	[rows]='9',
+	[rows]='10',
 	[paginator]='true',
 	[tableStyle]="{ 'min-width': '75rem' }",
 	[rowHover]='true',
@@ -109,6 +109,7 @@ p-table(
 			size='large',
 			[cubPopupTriggerOtherConfig]=`{
 				resizable: true,
+				disableClose: true,
 				hasBackdrop: true,
 				autoFocus: true,
 				origin: null
@@ -137,12 +138,12 @@ p-table(
 							origin: null
 						}`,
 						[cubPopupTriggerFor]='popup',
-						(mousedown)='editNews( n )')
+						(mousedown)='editNews( n ); $event?.stopPropagation();')
 						i.pi.pi-pencil
 					button.m-2(
 						cubBasicButton,
 						size='large',
-						(click)='delete( n.id ); $event?.stopPropagation();')
+						(mousedown)='delete( n.id ); $event?.stopPropagation();')
 						i.pi.pi-trash
 	ng-template(pTemplate='summary')
 		.d-flex.align-items-center.justify-content-between

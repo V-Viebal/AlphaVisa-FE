@@ -196,7 +196,7 @@ export class NewsComponent implements OnInit, OnDestroy {
 								news && news.id === this.news.id
 						);
 
-					this.newss[ index ] = this.news;
+					this.newss[ index ] = _.cloneDeep( this.news );
 
 					this.popup.close();
 
@@ -303,6 +303,8 @@ export class NewsComponent implements OnInit, OnDestroy {
 			= news?.thumbnail
 				? [ news.thumbnail ]
 				: undefined;
+
+		this._cdRef.markForCheck();
 	}
 
 }

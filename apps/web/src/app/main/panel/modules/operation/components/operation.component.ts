@@ -246,7 +246,7 @@ export class OperationComponent implements OnInit, OnDestroy {
 							( operation: OperationDetail ) =>
 								operation.id === this.operation.id
 						);
-					this.operations[ index ] = this.operation;
+					this.operations[ index ] = _.cloneDeep( this.operation );
 
 					const indexBk: number
 						= _.findIndex(
@@ -254,7 +254,7 @@ export class OperationComponent implements OnInit, OnDestroy {
 							( operation: OperationDetail ) =>
 								operation.id === this.operation.id
 						);
-					this._operationsBk[ indexBk ] = this.operation;
+					this._operationsBk[ indexBk ] = _.cloneDeep( this.operation );
 
 					this.popup.close();
 

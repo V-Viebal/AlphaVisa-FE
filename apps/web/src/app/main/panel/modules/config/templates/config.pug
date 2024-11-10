@@ -12,18 +12,6 @@ p-toolbar(styleClass='mb-4 gap-2')
 		form.layout-column.layout-align-start-center.layout-gap-20.ph-40.miw-200.maw-600(
 			[formGroup]='configForm',
 			(ngSubmit)='update()')
-			cub-dropdown.full-width(
-				label='Ngôn ngữ',
-				size='xlarge',
-				formControlName='language',
-				[clearable]='false',
-				[(valueControl)]='config.language')
-				cub-dropdown-item(
-					label='Tiếng việt',
-					[value]='LANGUAGES.VN')
-				cub-dropdown-item(
-					label='Tiếng anh',
-					[value]='LANGUAGES.EN')
 			cub-form-field.full-width(
 				size='xlarge',
 				label='Số điện thoại')
@@ -62,7 +50,7 @@ p-toolbar(styleClass='mb-4 gap-2')
 					[valueControl]='config?.addressLink')
 				ng-container(
 					cubFormFieldLabel)
-					.layout-row.layout-align-space-between-center
+					.layout-row.layout-align-space-between-center.layout-gap-4
 						| Đường dẫn địa chỉ
 						button(
 							cubBasicButton,
@@ -97,5 +85,17 @@ p-toolbar(styleClass='mb-4 gap-2')
 					placeholder='Nhập văn bản...',
 					formControlName='zaloLink',
 					[valueControl]='config?.zaloLink')
+			cub-dropdown.full-width(
+				label='Ngôn ngữ',
+				size='xlarge',
+				formControlName='language',
+				[clearable]='false',
+				[(valueControl)]='config.language')
+				cub-dropdown-item(
+					label='Tiếng việt',
+					[value]='LANGUAGES.VN')
+				cub-dropdown-item(
+					label='Tiếng anh',
+					[value]='LANGUAGES.EN')
 	+else
 		cub-loading

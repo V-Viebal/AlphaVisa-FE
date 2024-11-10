@@ -72,7 +72,17 @@ export class AuthInterceptor implements HttpInterceptor {
 			.rotateAccessToken()
 			.pipe(
 				switchMap(() => {
-					return next.handle( request );
+					const accessToken: string
+						= this._authService.getStoredAuth()
+						.accessToken;
+
+					const newRequest: HttpRequest<any>
+						= request.clone({
+							setHeaders:
+								{ Authorization: `Bearer ${accessToken}` },
+						});
+
+					return next.handle( newRequest );
 				}),
 				catchError(() => {
 					this._authService.clearStoredAuth();
