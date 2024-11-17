@@ -12,6 +12,10 @@ on:
 
   workflow_call:
     inputs:
+      environment:
+        type: string
+        required: false
+        default: ''
       build-artifacts:
         type: boolean
         required: false
@@ -25,6 +29,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
     outputs:
       build-tag: ${{ steps.set_tag.outputs.build-tag }} # Set output for webTag at the job level
     steps:
