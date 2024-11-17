@@ -83,7 +83,8 @@ jobs:
     - name: Tag Docker Image as latest
       if: ${{ inputs.build-artifacts == true }}
       run: |
-        docker tag ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} ${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
+        docker tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
+          ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
 
     - name: Push Docker Image to registry
       if: ${{ inputs.build-artifacts == true }}
