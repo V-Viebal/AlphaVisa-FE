@@ -82,7 +82,7 @@ jobs:
       run: |
         # Build the Angular image using the Dockerfile in the specified path
         docker build \
-            -t ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
+            -t ${{ env.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
             -f Dockerfile .
 
     - name: Tag Docker Image as latest
