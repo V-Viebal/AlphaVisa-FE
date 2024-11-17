@@ -22,7 +22,13 @@ on:
         description: 'Build Tag output'
         value: ${{ jobs.build.outputs.build-tag }} # This references the job output
       
-
+env: |-
+  ${{
+     github.ref_name == 'main' && 'prod'
+  || github.ref_name == 'dev' && 'dev'
+  || github.ref_name == 'staging' && 'stg'
+  }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
