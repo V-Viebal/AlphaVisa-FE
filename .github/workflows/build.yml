@@ -25,7 +25,11 @@ on:
       build-tag:
         description: 'Build Tag output'
         value: ${{ jobs.build.outputs.build-tag }} # This references the job output
-
+        
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -72,12 +76,8 @@ jobs:
       if: ${{ inputs.build-artifacts == true }}
       run: |
         # Build the Angular image using the Dockerfile in the specified path
-        # Ensure that the tag format is correct
-        TAG="${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}"
-        echo "Building Angular Docker image with tag: $TAG"
-        
         docker build \
-            -t $TAG \
+            -t ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
             -f Dockerfile .
 
     - name: Tag Docker Image as latest
