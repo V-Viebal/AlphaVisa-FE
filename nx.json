@@ -1,38 +1,47 @@
 {
-	"defaultProject": "web",
-	"useInferencePlugins": false,
-	"defaultBase": "main",
-	"$schema": "./node_modules/nx/schemas/nx-schema.json",
-	"targetDefaults": {
-		"build": {
-			"dependsOn": ["^build"],
-			"inputs": ["production", "^production"],
-			"cache": false
-		}
-	},
-	"namedInputs": {
-		"default": ["{projectRoot}/**/*", "sharedGlobals"],
-		"sharedGlobals": [
-			"{workspaceRoot}/tsconfig.json",
-			"{workspaceRoot}/nx.json"
-		],
-		"production": [
-			"default",
-			"!{projectRoot}/.eslintrc.json"
-		]
-	},
-	"tasksRunnerOptions": {
-		"default": {
-			"runner": "@nx/workspace/tasks-runners/default",
-			"options": {
-				"cacheableOperations": []
-			}
-		}
-	},
-	"cli": {
-		"cache": {
-			"enabled": true,
-			"environment": "all"
-		}
-	}
+  "defaultProject": "web",
+  "useInferencePlugins": false,
+  "defaultBase": "main",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
+      "cache": false
+    }
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/tsconfig.json",
+      "{workspaceRoot}/nx.json"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/.eslintrc.json"
+    ]
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nx/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": []
+      }
+    }
+  },
+  "cli": {
+    "cache": {
+      "enabled": true,
+      "environment": "all"
+    }
+  },
+  "nxCloudAccessToken": "ZDUyNzM4MmEtOTkwNS00YmJmLTgxMmUtZGNiZDEwZGZmM2QyfHJlYWQtd3JpdGU="
 }

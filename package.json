@@ -5,6 +5,10 @@
 	"license": "MIT",
 	"authors": "Frontend Team",
 	"private": true,
+	"scripts": {
+		"affected:dep-graph": "nx affected:dep-graph",
+		"dep-graph": "nx dep-graph"
+	},
 	"workspaces": [
 		"apps/*",
 		"projects/*"
