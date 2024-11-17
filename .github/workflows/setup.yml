@@ -21,12 +21,7 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    steps:
-    - name: Install GitHub CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install gh
-        
+    steps:  
     - name: Setup GitHub CLI
       run: |
         echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
@@ -56,15 +51,15 @@ jobs:
 
         # Set global variables (not environment-specific)
         gh variable set DOCKER_USERNAME \
-          --repo $REPO_NAME \
+          --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_USERNAME }}"
 
         gh variable set DOCKER_TOKEN \
-          --repo $REPO_NAME \
+          --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_TOKEN }}"
 
         gh variable set DOCKER_REPO \
-          --repo $REPO_NAME \
+          --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_REPO }}"
 
         # List of environments and create each one
@@ -92,7 +87,7 @@ jobs:
               echo "Setting secret '$secret_name' for environment $env"
               gh secret set $secret_name \
                 --env $env \
-                --repo $REPO_NAME \
+                --repo "$ORGANIZATION/$REPO_NAME" \
                 --body "$secret_value"
             fi
           done
