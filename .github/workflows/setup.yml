@@ -68,7 +68,7 @@ jobs:
           --body "${{ github.event.inputs.DOCKER_REPO }}"
 
         # List of environments and create each one
-        environments=("dev" "staging" "prod")
+        environments=("dev" "stg" "prod")
 
         # Loop through environments and create each one
         for env in "${environments[@]}"; do
