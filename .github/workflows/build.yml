@@ -77,7 +77,7 @@ jobs:
       run: |
         # Build the Angular image using the Dockerfile in the specified path
         docker build \
-            -t ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
             -f Dockerfile .
 
     - name: Tag Docker Image as latest
@@ -89,5 +89,5 @@ jobs:
       if: ${{ inputs.build-artifacts == true }}
       run: |
         echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-        docker push ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}
-        docker push ${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
