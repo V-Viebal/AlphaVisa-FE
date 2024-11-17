@@ -29,6 +29,7 @@ on:
 permissions:
   id-token: write
   contents: read
+  secrets: read
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
