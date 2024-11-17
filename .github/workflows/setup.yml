@@ -22,6 +22,7 @@ on:
         required: false
         default: ''
         type: string
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -54,15 +55,15 @@ jobs:
         echo "DOCKER_REPO: ${{ github.event.inputs.DOCKER_REPO }}"
 
         # Set global variables (not environment-specific)
-        gh variable set DOCKER_USERNAME \
+        gh secret set DOCKER_USERNAME \
           --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_USERNAME }}"
 
-        gh variable set DOCKER_TOKEN \
+        gh secret set DOCKER_TOKEN \
           --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_TOKEN }}"
 
-        gh variable set DOCKER_REPO \
+        gh secret set DOCKER_REPO \
           --repo "$ORGANIZATION/$REPO_NAME" \
           --body "${{ github.event.inputs.DOCKER_REPO }}"
 
@@ -74,31 +75,29 @@ jobs:
           echo "Creating environment: $env"
           gh api --method PUT "/repos/$ORGANIZATION/$REPO_NAME/environments/$env" \
             -H "Accept: application/vnd.github.v3+json"
-            
-          secrets_to_set=(
+
+          # Set environment-specific variables
+          variables_to_set=(
             "ENV_NAME=$env"
           )
-          
-          # Set environment variables
-          for secret in "${secrets_to_set[@]}"; do
-            secret_name=$(echo $secret | cut -d '=' -f 1)
-            secret_value=$(echo $secret | cut -d '=' -f 2)
 
-            # Check if secret exists before setting (for idempotency)
-            if gh secret list --repo $REPO_NAME | grep -q "$secret_name"; then
-              echo "Secret '$secret_name' already exists, skipping creation."
+          for variable in "${variables_to_set[@]}"; do
+            variable_name=$(echo $variable | cut -d '=' -f 1)
+            variable_value=$(echo $variable | cut -d '=' -f 2)
+
+            # Check if variable exists before setting (for idempotency)
+            if gh variable list --repo "$ORGANIZATION/$REPO_NAME" | grep -q "$variable_name"; then
+              echo "Variable '$variable_name' already exists, skipping creation."
             else
-              echo "Setting secret '$secret_name' for environment $env"
-              gh secret set $secret_name \
+              echo "Setting variable '$variable_name' for environment $env"
+              gh variable set $variable_name \
                 --env $env \
                 --repo "$ORGANIZATION/$REPO_NAME" \
-                --body "$secret_value"
+                --body "$variable_value"
             fi
           done
-            
         done
-       
+
     - name: Done
       run: |
         echo "✅ GitHub Environments and Secrets setup completed!"
-    
