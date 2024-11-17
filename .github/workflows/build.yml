@@ -72,8 +72,12 @@ jobs:
       if: ${{ inputs.build-artifacts == true }}
       run: |
         # Build the Angular image using the Dockerfile in the specified path
+        # Ensure that the tag format is correct
+        TAG="${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}"
+        echo "Building Angular Docker image with tag: $TAG"
+        
         docker build \
-            -t ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
+            -t $TAG \
             -f Dockerfile .
 
     - name: Tag Docker Image as latest
