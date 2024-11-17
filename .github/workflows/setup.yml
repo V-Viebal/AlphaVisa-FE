@@ -10,7 +10,7 @@ on:
       DOCKER_USERNAME:
         description: 'Default Docker Hub Username'
         required: false
-        default: 'V-Viebal'
+        default: 'vviebal'
         type: string
       DOCKER_TOKEN:
         description: 'Default Docker Hub Token'
