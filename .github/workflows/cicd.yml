@@ -16,7 +16,7 @@ jobs:
       environment: ${{ steps.set-env-name.outputs.environment }}
     steps:
       - name: Set environment
-      - id: set-env-name
+        id: set-env-name
         run: |
           if [[ "${GITHUB_REF##*/}" == "main" ]]; then
             ENV_NAME="prod"
