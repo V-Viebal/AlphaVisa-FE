@@ -29,12 +29,6 @@ on:
 permissions:
   id-token: write
   contents: read
-  secrets: read
-
-env:
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-  DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
   
 jobs:
   build:
@@ -83,17 +77,17 @@ jobs:
       run: |
         # Build the Angular image using the Dockerfile in the specified path
         docker build \
-            -t ${{ env.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
+            -t ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} \
             -f Dockerfile .
 
     - name: Tag Docker Image as latest
       if: ${{ inputs.build-artifacts == true }}
       run: |
-        docker tag ${{ env.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} ${{ env.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
+        docker tag ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }} ${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
 
     - name: Push Docker Image to registry
       if: ${{ inputs.build-artifacts == true }}
       run: |
-        docker login -u ${{ env.DOCKER_USERNAME }} -p ${{ env.DOCKER_TOKEN }}
-        docker push ${{ env.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}
-        docker push ${{ env.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+        docker push ${{ secrets.DOCKER_REPO }}:${{ steps.set_tag.outputs.build-tag }}
+        docker push ${{ secrets.DOCKER_REPO }}:${{ vars.ENV_NAME }}-latest
