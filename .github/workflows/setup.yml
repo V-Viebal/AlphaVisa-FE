@@ -22,10 +22,14 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+    - name: Install GitHub CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install gh
+        
     - name: Setup GitHub CLI
-      uses: cli/gh-actions@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
     - name: Extract Repository Info
       run: |
