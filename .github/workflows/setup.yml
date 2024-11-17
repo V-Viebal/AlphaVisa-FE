@@ -1,0 +1,101 @@
+name: Setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      DOCKER_USERNAME:
+        description: 'Default Docker Hub Username'
+        required: false
+        default: 'V-Viebal'
+        type: string
+      DOCKER_TOKEN:
+        description: 'Default Docker Hub Token'
+        required: false
+        default: ''
+        type: string
+      DOCKER_REPO:
+        description: 'Default Docker Hub Repo'
+        required: false
+        default: ''
+        type: string
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup GitHub CLI
+      uses: cli/gh-actions@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract Repository Info
+      run: |
+        # Extract the organization and repository name from GITHUB_REPOSITORY
+        REPO="${{ github.repository }}"
+        ORGANIZATION="${REPO%/*}"
+        REPO_NAME="${REPO#*/}"
+
+        echo "Repository Info"
+        echo "Organization: $ORGANIZATION"
+        echo "Repository name: $REPO_NAME"
+
+        # Store the values as environment variables for use in later step
+        echo "ORGANIZATION=${ORGANIZATION}" >> $GITHUB_ENV
+        echo "REPO_NAME=${REPO_NAME}" >> $GITHUB_ENV
+
+    - name: Create GitHub Environments and Set Variables
+      run: |
+        echo "Setting up GitHub environments..."
+        echo "Project Name: ${REPO_NAME}"
+        echo "DOCKER_USERNAME: ${{ github.event.inputs.DOCKER_USERNAME }}"
+        echo "DOCKER_TOKEN: ${{ github.event.inputs.DOCKER_TOKEN }}"
+        echo "DOCKER_REPO: ${{ github.event.inputs.DOCKER_REPO }}"
+
+        # Set global variables (not environment-specific)
+        gh variable set DOCKER_USERNAME \
+          --repo $REPO_NAME \
+          --body "${{ github.event.inputs.DOCKER_USERNAME }}"
+
+        gh variable set DOCKER_TOKEN \
+          --repo $REPO_NAME \
+          --body "${{ github.event.inputs.DOCKER_TOKEN }}"
+
+        gh variable set DOCKER_REPO \
+          --repo $REPO_NAME \
+          --body "${{ github.event.inputs.DOCKER_REPO }}"
+
+        # List of environments and create each one
+        environments=("dev", "staging", "prod")
+
+        # Loop through environments and create each one
+        for env in "${environments[@]}"; do
+          echo "Creating environment: $env"
+          gh api --method PUT "/repos/$ORGANIZATION/$REPO_NAME/environments/$env" \
+            -H "Accept: application/vnd.github.v3+json"
+            
+          secrets_to_set=(
+            "ENV_NAME=$env"
+          )
+          
+          # Set environment variables
+          for secret in "${secrets_to_set[@]}"; do
+            secret_name=$(echo $secret | cut -d '=' -f 1)
+            secret_value=$(echo $secret | cut -d '=' -f 2)
+
+            # Check if secret exists before setting (for idempotency)
+            if gh secret list --repo $REPO_NAME | grep -q "$secret_name"; then
+              echo "Secret '$secret_name' already exists, skipping creation."
+            else
+              echo "Setting secret '$secret_name' for environment $env"
+              gh secret set $secret_name \
+                --env $env \
+                --repo $REPO_NAME \
+                --body "$secret_value"
+            fi
+          done
+            
+        done
+       
+    - name: Done
+      run: |
+        echo "✅ GitHub Environments and Secrets setup completed!"
+    
