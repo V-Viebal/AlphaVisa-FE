@@ -3,6 +3,10 @@ name: Setup
 on:
   workflow_dispatch:
     inputs:
+      FINE_GRAINED_PAT:
+        description: 'Fine-Grained Personal Access Token for GitHub'
+        required: true
+        type: string
       DOCKER_USERNAME:
         description: 'Default Docker Hub Username'
         required: false
@@ -24,7 +28,7 @@ jobs:
     steps:  
     - name: Setup GitHub CLI
       run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        echo "${{ github.event.inputs.FINE_GRAINED_PAT }}" | gh auth login --with-token
 
     - name: Extract Repository Info
       run: |
