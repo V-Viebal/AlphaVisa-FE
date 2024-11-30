@@ -1,4 +1,5 @@
 import {
+	CUSTOM_ELEMENTS_SCHEMA,
 	ModuleWithProviders,
 	NgModule,
 	inject
@@ -48,16 +49,16 @@ import {
 import {
 	AuthInterceptor
 } from '@main/auth/interceptors';
+import {
+	PanelAppWrapperComponent
+} from '@main/panel-app-wrapper/panel-app-wrapper.component';
 
 import {
 	AppRoutingModules
-} from './app-routing.module';
+} from './app.routes';
 import {
 	AppComponent
 } from './app.component';
-import {
-	GuidelineModule
-} from './@guideline/guideline.module';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ServiceWorkerModule: ModuleWithProviders<SWModule>
@@ -80,7 +81,6 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 		CUBImageModule,
 
 		ErrorModule,
-		GuidelineModule, //temp
 		AuthModule,
 
 		AppRoutingModules,
@@ -89,6 +89,7 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 	],
 	declarations: [
 		AppComponent,
+		PanelAppWrapperComponent,
 	],
 	providers: [
 		{
@@ -107,6 +108,7 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 		},
 	],
 	bootstrap: [ AppComponent ],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class AppModule {
 

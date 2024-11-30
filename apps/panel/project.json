@@ -1,0 +1,150 @@
+{
+	"name": "panel",
+	"$schema": "node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/panel/src",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:webpack-browser",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"customWebpackConfig": {
+					"path": "apps/panel/webpack.config.js"
+				},
+				"outputPath": "dist/panel",
+				"index": "apps/panel/src/index.html",
+				"main": "apps/panel/src/main.ts",
+				"tsConfig": "apps/panel/tsconfig.json",
+				"inlineStyleLanguage": "scss",
+				"aot": false,
+				"optimization": false,
+				"sourceMap": true,
+				"namedChunks": true,
+				"vendorChunk": true,
+				"extractLicenses": false,
+				"buildOptimizer": false,
+				"serviceWorker": false,
+				"statsJson": false,
+				"stylePreprocessorOptions": {
+					"includePaths": ["apps/panel"]
+				},
+				"assets": [
+					{
+						"glob": "**/*",
+						"input": "apps/panel/src/assets/",
+						"output": "/assets/"
+					},
+					{
+						"glob": "favicon.ico",
+						"input": "apps/panel/src/assets/",
+						"output": "/"
+					},
+					"apps/panel/src/robots.txt",
+					"apps/panel/src/sitemap.xml"
+				],
+				"styles": ["apps/panel/src/styles.scss"],
+				"scripts": [],
+				"allowedCommonJsDependencies": [
+					"@editorjs/checklist",
+					"@editorjs/code",
+					"@editorjs/delimiter",
+					"@editorjs/header",
+					"@editorjs/inline-code",
+					"@editorjs/list",
+					"@editorjs/marker",
+					"@editorjs/paragraph",
+					"@editorjs/quote",
+					"@editorjs/raw",
+					"@editorjs/table",
+					"@editorjs/underline",
+					"@editorjs/alert",
+					"@editorjs/embed",
+					"@editorjs/link",
+					"@editorjs/image",
+					"@editorjs/image",
+					"angular-svg-round-progressbar",
+					"cropperjs",
+					"crypto-js",
+					"editorjs-drag-drop",
+					"editorjs-text-alignment-blocktune",
+					"editorjs-text-color-plugin",
+					"editorjs-undo",
+					"exceljs",
+					"file-saver",
+					"image-conversion",
+					"lodash",
+					"moment-timezone",
+					"moment",
+					"moment/locale/vi",
+					"quill-magic-url",
+					"quill-table",
+					"quill",
+					"xlsx"
+				]
+			},
+			"configurations": {
+				"production": {
+					"outputHashing": "all",
+					"aot": true,
+					"optimization": true,
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"buildOptimizer": true,
+					"serviceWorker": true,
+					"outputPath": "dist/panel/production",
+					"fileReplacements": [
+						{
+							"replace": "apps/panel/src/environments/environment.ts",
+							"with": "apps/panel/src/environments/environment.production.ts"
+						},
+						{
+							"replace": "apps/panel/src/environments/hash.ts",
+							"with": "apps/panel/src/environments/hash.production.ts"
+						}
+					]
+				},
+				"development": {
+					"fileReplacements": [
+						{
+							"replace": "apps/panel/src/environments/environment.ts",
+							"with": "apps/panel/src/environments/environment.dev.ts"
+						},
+						{
+							"replace": "apps/panel/src/environments/hash.ts",
+							"with": "apps/panel/src/environments/hash.dev.ts"
+						}
+					]
+				}
+			}
+		},
+		"serve": {
+			"executor": "@nx/angular:module-federation-dev-server",
+			"options": {
+				"buildTarget": "panel:build",
+				"host": "0.0.0.0",
+				"port": 8001,
+				"open": true,
+				"publicHost": "http://localhost:8001"
+			},
+			"configurations": {
+				"aot": {
+					"buildTarget": "panel:build:aot"
+				},
+				"production": {
+					"buildTarget": "panel:build:production"
+				},
+				"development": {
+					"buildTarget": "panel:build:development"
+				}
+			}
+		},
+		"extract-i18n": {
+			"executor": "@angular-devkit/build-angular:extract-i18n",
+			"options": {
+				"buildTarget": "panel:build"
+			}
+		}
+	}
+}

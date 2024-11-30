@@ -1,47 +1,69 @@
 {
-  "defaultProject": "web",
-  "useInferencePlugins": false,
-  "defaultBase": "main",
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "targetDefaults": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ],
-      "cache": false
+    "defaultProject": "web",
+    "useInferencePlugins": false,
+    "defaultBase": "main",
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "sharedGlobals": [
+            "{workspaceRoot}/tsconfig.json",
+            "{workspaceRoot}/nx.json"
+        ],
+        "production": [
+            "default",
+            "!{projectRoot}/.eslintrc.json",
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/tsconfig.spec.json",
+            "!{projectRoot}/jest.config.[jt]s",
+            "!{projectRoot}/src/test-setup.[jt]s",
+            "!{projectRoot}/test-setup.[jt]s"
+        ]
+    },
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/nx-cloud",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"],
+                "accessToken": "ZDUyNzM4MmEtOTkwNS00YmJmLTgxMmUtZGNiZDEwZGZmM2QyfHJlYWQtd3JpdGU="
+            }
+        }
+    },
+    "cli": {
+        "cache": {
+            "enabled": true,
+            "environment": "all"
+        }
+    },
+    "targetDefaults": {
+        "@angular-devkit/build-angular:browser": {
+            "cache": true,
+            "dependsOn": ["^build"],
+            "inputs": ["production", "^production"]
+        },
+        "@nx/jest:jest": {
+            "cache": true,
+            "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+            ],
+            "options": {
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        }
+    },
+    "generators": {
+        "@nx/angular:application": {
+            "e2eTestRunner": "none",
+            "linter": "eslint",
+            "style": "scss",
+            "unitTestRunner": "jest"
+        }
     }
-  },
-  "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
-    "sharedGlobals": [
-      "{workspaceRoot}/tsconfig.json",
-      "{workspaceRoot}/nx.json"
-    ],
-    "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json"
-    ]
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nx/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": []
-      }
-    }
-  },
-  "cli": {
-    "cache": {
-      "enabled": true,
-      "environment": "all"
-    }
-  },
-  "nxCloudAccessToken": "ZDUyNzM4MmEtOTkwNS00YmJmLTgxMmUtZGNiZDEwZGZmM2QyfHJlYWQtd3JpdGU="
 }

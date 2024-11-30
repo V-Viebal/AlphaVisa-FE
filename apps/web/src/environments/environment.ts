@@ -13,4 +13,8 @@ export const ENVIRONMENT = {
 	APP_LOGO_VERTICAL				: 'assets/images/logos/logo-vertical.png',
 	APP_VERSION						: appVersion,
 	GOOGLE_CLIENT_ID				: '',
+
+	REMOTE_URLS: {
+		PANEL_URL: 'http://localhost:8001',
+	}
 } as const;
