@@ -1,8 +1,7 @@
-import { DoBootstrap, Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { createCustomElement } from '@angular/elements';
 import {
 	provideAnimationsAsync
 } from '@angular/platform-browser/animations/async';
@@ -13,15 +12,14 @@ import {
 } from '@core';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routes';
+import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PanelComponent } from './panel/components';
 import { CUB_LOCAL_FILE_SIZE_LIMIT } from '@cub/material';
+import { PanelModule } from './panel/panel.module';
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		PanelComponent,
+		AppComponent
 	],
 	imports: [
 		CoreModule,
@@ -31,6 +29,8 @@ import { CUB_LOCAL_FILE_SIZE_LIMIT } from '@cub/material';
 		CommonModule,
 		HttpClientModule,
 		AppRoutingModule,
+
+		PanelModule,
 	],
 	providers: [
 		{
@@ -41,14 +41,4 @@ import { CUB_LOCAL_FILE_SIZE_LIMIT } from '@cub/material';
 	],
 	bootstrap: [ AppComponent ],
 })
-export class AppModule implements DoBootstrap {
-	constructor(private injector: Injector) {}
-
-	public ngDoBootstrap(): void {
-		const ce = createCustomElement(AppComponent, {
-			injector: this.injector,
-		});
-		customElements.define('panel-app', ce);
-		// <panel-app></panel-app>
-	}
-}
+export class AppModule {}

@@ -4,7 +4,7 @@ import { appVersion } from '@environments/version';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const registry: any = {
-	panelApp: (): Promise<any> =>
+	panel: (): Promise<any> =>
 		loadRemoteModule({
 			type: 'module',
 			remoteEntry: `${ENVIRONMENT.REMOTE_URLS.PANEL_URL}/remoteEntry.js?v=${appVersion}`,

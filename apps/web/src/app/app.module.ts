@@ -55,7 +55,7 @@ import {
 
 import {
 	AppRoutingModules
-} from './app.routes';
+} from './app-routing.module';
 import {
 	AppComponent
 } from './app.component';

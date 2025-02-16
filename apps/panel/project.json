@@ -1,22 +1,22 @@
 {
-	"name": "panel",
+	"name": "panel-app",
 	"$schema": "node_modules/nx/schemas/project-schema.json",
 	"projectType": "application",
 	"sourceRoot": "apps/panel/src",
 	"tags": [],
 	"targets": {
 		"build": {
-			"executor": "@nx/angular:webpack-browser",
+			"executor": "ngx-build-plus:browser",
 			"outputs": ["{options.outputPath}"],
 			"options": {
-				"customWebpackConfig": {
-					"path": "apps/panel/webpack.config.js"
-				},
+				"extraWebpackConfig": "apps/panel/webpack.config.js",
 				"outputPath": "dist/panel",
 				"index": "apps/panel/src/index.html",
 				"main": "apps/panel/src/main.ts",
 				"tsConfig": "apps/panel/tsconfig.json",
 				"inlineStyleLanguage": "scss",
+				"buildLibsFromSource": false,
+				"commonChunk": false,
 				"aot": false,
 				"optimization": false,
 				"sourceMap": true,
@@ -120,9 +120,9 @@
 			}
 		},
 		"serve": {
-			"executor": "@nx/angular:module-federation-dev-server",
+			"executor": "ngx-build-plus:dev-serverr",
 			"options": {
-				"buildTarget": "panel:build",
+				"buildTarget": "panel-app:build",
 				"host": "0.0.0.0",
 				"port": 8001,
 				"open": true,
@@ -130,20 +130,20 @@
 			},
 			"configurations": {
 				"aot": {
-					"buildTarget": "panel:build:aot"
+					"buildTarget": "panel-app:build:aot"
 				},
 				"production": {
-					"buildTarget": "panel:build:production"
+					"buildTarget": "panel-app:build:production"
 				},
 				"development": {
-					"buildTarget": "panel:build:development"
+					"buildTarget": "panel-app:build:development"
 				}
 			}
 		},
 		"extract-i18n": {
-			"executor": "@angular-devkit/build-angular:extract-i18n",
+			"executor": "ngx-build-plus:extract-i18n",
 			"options": {
-				"buildTarget": "panel:build"
+				"buildTarget": "panel-app:build"
 			}
 		}
 	}

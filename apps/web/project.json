@@ -5,14 +5,12 @@
 	"projectType": "application",
 	"targets": {
 		"build": {
-			"executor": "@nx/angular:webpack-browser",
+			"executor": "ngx-build-plus:browser",
 			"outputs": [
 				"{options.outputPath}"
 			],
 			"options": {
-				"customWebpackConfig": {
-					"path": "apps/web/webpack.config.js"
-				},
+				"extraWebpackConfig": "apps/web/webpack.config.js",
 				"outputPath": "dist/web",
 				"index": "apps/web/src/index.html",
 				"main": "apps/web/src/main.ts",
@@ -21,6 +19,8 @@
 				"ngswConfigPath": "apps/web/ngsw-config.json",
 				"outputHashing": "none",
 				"crossOrigin": "use-credentials",
+				"buildLibsFromSource": false,
+				"commonChunk": false,
 				"aot": false,
 				"optimization": false,
 				"sourceMap": true,
@@ -101,8 +101,7 @@
 					"quill-table",
 					"quill",
 					"xlsx"
-				],
-				"commonChunk": false
+				]
 			},
 			"configurations": {
 				"local": {
@@ -172,7 +171,7 @@
 			}
 		},
 		"serve": {
-			"executor": "@nx/angular:module-federation-dev-server",
+			"executor": "ngx-build-plus:dev-server",
 			"options": {
 				"buildTarget": "web:build",
 				"host": "0.0.0.0",
@@ -199,7 +198,7 @@
 			}
 		},
 		"extract-i18n": {
-			"executor": "@angular-devkit/build-angular:extract-i18n",
+			"executor": "ngx-build-plus:extract-i18n",
 			"options": {
 				"buildTarget": "web:build"
 			}
@@ -222,5 +221,6 @@
 		"@schematics/angular:directive": {
 			"prefix": "app"
 		}
-	}
+	},
+	"implicitDependencies": ["panel-app"]
 }

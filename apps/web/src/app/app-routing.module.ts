@@ -5,9 +5,6 @@ import {
 	RouterModule,
 	Routes
 } from '@angular/router';
-import {
-	loadRemoteModule
-} from '@angular-architects/module-federation';
 
 import {
 	ErrorComponent
@@ -18,12 +15,9 @@ import {
 } from '@core';
 
 import {
-	PanelAppWrapperComponent
-} from '@main/panel-app-wrapper/panel-app-wrapper.component';
-
-import {
 	CustomPreloadingStrategy
 } from './custom-preloading-strategy';
+import { loadRemoteModule } from '@angular-architects/module-federation';
 
 const routeData: IRouteData = { cache: false };
 const routes: Routes = [
@@ -36,8 +30,12 @@ const routes: Routes = [
 	},
 	{
 		path: 'panel',
-		component: PanelAppWrapperComponent,
-		data: { importName: 'panelApp', elementName: 'panel-app' },
+		loadChildren: () =>
+			loadRemoteModule({
+				type: 'manifest',
+				remoteName: 'panel',
+				exposedModule: './Module',
+			  }).then((m) => m.PanelModule),
 	},
 	{
 		path		: '**',
