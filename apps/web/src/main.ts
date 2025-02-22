@@ -70,6 +70,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { ENVIRONMENT } from './environments/environment';
+import { loadManifest } from '@angular-architects/module-federation-runtime';
 
 if ( ENVIRONMENT.PRODUCTION ) {
 	enableProdMode();
@@ -77,19 +78,14 @@ if ( ENVIRONMENT.PRODUCTION ) {
 	( module as any ).hot.accept();
 }
 
-platformBrowserDynamic()
-.bootstrapModule( AppModule )
+loadManifest( '/mf.manifest.json' )
 .then(() => {
-	'serviceWorker' in navigator
-		&& ENVIRONMENT.PRODUCTION
-		&& navigator.serviceWorker.register( './ngsw-worker.js' );
+return platformBrowserDynamic()
+	.bootstrapModule( AppModule )
+	.then(() => {
+		if ( 'serviceWorker' in navigator && ENVIRONMENT.PRODUCTION ) {
+			navigator.serviceWorker.register( './ngsw-worker.js' );
+		}
+	});
 })
-.catch( ( err: Error ) => console.error( err ) );
-
-/***************************************************************************************************/
-import { loadManifest } from '@angular-architects/module-federation';
-
-loadManifest("/mf.manifest.json")
-  .catch(err => console.error(err))
-  .then(_ => import('./bootstrap'))
-  .catch(err => console.error(err));
+.catch( err => console.error( err ) );

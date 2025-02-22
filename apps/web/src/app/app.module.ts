@@ -49,9 +49,6 @@ import {
 import {
 	AuthInterceptor
 } from '@main/auth/interceptors';
-import {
-	PanelAppWrapperComponent
-} from '@main/panel-app-wrapper/panel-app-wrapper.component';
 
 import {
 	AppRoutingModules
@@ -89,7 +86,6 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 	],
 	declarations: [
 		AppComponent,
-		PanelAppWrapperComponent,
 	],
 	providers: [
 		{

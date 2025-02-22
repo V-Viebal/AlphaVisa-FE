@@ -1,18 +1,18 @@
 div(cubDialogHeader)
 	.layout-column.layout-gap-16.full-width(
 		*ngIf='!account; else elseBlock;')
-			button.full-width(
-				cubButton,
-				size='large',
-				(click)='openSignUpDialog()')
-				.text-semi-bold
-					| {{ "NAVIGATION.LABEL.SIGN_UP" | translate }}
-			button.full-width(
-				size='large',
-				cubButton='secondary',
-				(click)='openSignInDialog()')
-				.text-semi-bold
-					| {{ "NAVIGATION.LABEL.SIGN_IN" | translate }}
+		button.full-width(
+			cubButton,
+			size='large',
+			(click)='openSignUpDialog()')
+			.text-semi-bold
+				| {{ "NAVIGATION.LABEL.SIGN_UP" | translate }}
+		button.full-width(
+			size='large',
+			cubButton='secondary',
+			(click)='openSignInDialog()')
+			.text-semi-bold
+				| {{ "NAVIGATION.LABEL.SIGN_IN" | translate }}
 	ng-template(#elseBlock)
 		button.full-width(
 			cubButton,

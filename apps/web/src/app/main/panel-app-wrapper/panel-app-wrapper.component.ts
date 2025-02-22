@@ -12,9 +12,9 @@ import {
 } from 'app/registry';
 
 @Component({
-	selector: 'panel-app-wrapper',
-	templateUrl: './panel-app-wrapper.pug',
-	styleUrls: ['./panel-app-wrapper.component.scss'],
+	selector: 'panel-wrapper',
+	templateUrl: './panel-wrapper.pug',
+	styleUrls: ['./panel-wrapper.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PanelAppWrapperComponent implements OnInit {

@@ -6,9 +6,7 @@
 	"targets": {
 		"build": {
 			"executor": "ngx-build-plus:browser",
-			"outputs": [
-				"{options.outputPath}"
-			],
+			"outputs": ["{options.outputPath}"],
 			"options": {
 				"extraWebpackConfig": "apps/web/webpack.config.js",
 				"outputPath": "dist/web",
@@ -19,7 +17,6 @@
 				"ngswConfigPath": "apps/web/ngsw-config.json",
 				"outputHashing": "none",
 				"crossOrigin": "use-credentials",
-				"buildLibsFromSource": false,
 				"commonChunk": false,
 				"aot": false,
 				"optimization": false,
@@ -61,9 +58,7 @@
 					"apps/web/preload-font.js"
 				],
 				"stylePreprocessorOptions": {
-					"includePaths": [
-						"apps/web"
-					]
+					"includePaths": ["apps/web"]
 				},
 				"allowedCommonJsDependencies": [
 					"@editorjs/checklist",
@@ -81,7 +76,6 @@
 					"@editorjs/alert",
 					"@editorjs/embed",
 					"@editorjs/link",
-					"@editorjs/image",
 					"@editorjs/image",
 					"angular-svg-round-progressbar",
 					"cropperjs",
@@ -173,7 +167,7 @@
 		"serve": {
 			"executor": "ngx-build-plus:dev-server",
 			"options": {
-				"buildTarget": "web:build",
+				"extraWebpackConfig": "apps/web/webpack.config.js",
 				"host": "0.0.0.0",
 				"port": 8000,
 				"open": true,
@@ -222,5 +216,5 @@
 			"prefix": "app"
 		}
 	},
-	"implicitDependencies": ["panel-app"]
+	"implicitDependencies": ["panel"]
 }

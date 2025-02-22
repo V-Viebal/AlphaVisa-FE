@@ -29,7 +29,7 @@ import {
 } from '@main/account/services/account.service';
 import {
 	CONSTANT as PANEL_CONSTANT
-} from '@main/panel/resources';
+} from 'panel/resources';
 
 import {
 	REGEXP
